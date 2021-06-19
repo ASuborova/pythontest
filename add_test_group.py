@@ -12,7 +12,7 @@ class AddTestGroup(unittest.TestCase):
         self.wd = webdriver.Firefox()
         self.wd.implicitly_wait(30)
 
-        def test_add_test_group(self):
+    def test_add_test_group(self):
         wd = self.wd
         wd.get("http://localhost/addressbook/index.php")
         wd.find_element_by_name("user").click()
