@@ -4,6 +4,9 @@ from selenium.common.exceptions import NoSuchElementException
 from selenium.common.exceptions import NoAlertPresentException
 import unittest
 
+import group
+from group import Group
+
 
 class AddTestGroup(unittest.TestCase):
     def setUp(self):
@@ -24,18 +27,18 @@ class AddTestGroup(unittest.TestCase):
     def home_group_page(self, wd):
         wd.find_element_by_link_text("groups").click()
 
-    def create_new_group(self, wd, namegroup, header, footer):
+    def create_new_group(self, wd, group):
         # init group
         wd.find_element_by_name("new").click()
         #
         wd.find_element_by_name("group_name").click()
         wd.find_element_by_name("group_name").clear()
-        wd.find_element_by_name("group_name").send_keys(namegroup)
+        wd.find_element_by_name("group_name").send_keys(group.namegroup)
         wd.find_element_by_name("group_header").clear()
-        wd.find_element_by_name("group_header").send_keys(header)
+        wd.find_element_by_name("group_header").send_keys(group.headergroup)
         wd.find_element_by_name("group_footer").click()
         wd.find_element_by_name("group_footer").clear()
-        wd.find_element_by_name("group_footer").send_keys(footer)
+        wd.find_element_by_name("group_footer").send_keys(group.footergroup)
         # create new group
         wd.find_element_by_name("submit").click()
 
@@ -45,21 +48,21 @@ class AddTestGroup(unittest.TestCase):
     def logout(self, wd):
         wd.find_element_by_link_text("Logout").click()
 
-    def add_test_group(self):
-        wd = self.wd
-        self.open_home_page(wd)
-        self.logon(wd, username="admin", password="secret")
-        self.home_group_page(wd)
-        self.create_new_group(wd, namegroup="new_group1", header="new_group_1", footer="newgroup1")
-        self.back_to_group_page(wd)
-        self.logout(wd)
-
     def add_empty_test_group(self):
         wd = self.wd
         self.open_home_page(wd)
         self.logon(wd, username="admin", password="secret")
         self.home_group_page(wd)
-        self.create_new_group(wd, namegroup=" ", header=" ", footer=" ")
+        self.create_new_group(wd, group.Group(namegroup='', headergroup='', footergroup=''))
+        self.back_to_group_page(wd)
+        self.logout(wd)
+
+    def add_test_group(self):
+        wd = self.wd
+        self.open_home_page(wd)
+        self.logon(wd, username="admin", password="secret")
+        self.home_group_page(wd)
+        self.create_new_group(wd, group.Group(namegroup="new_group1", headergroup="new_group_1", footergroup="newgroup1"))
         self.back_to_group_page(wd)
         self.logout(wd)
 
