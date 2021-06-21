@@ -8,6 +8,24 @@ from group import Group
 
 
 class AddTestGroup(unittest.TestCase):
+    def add_empty_test_group(self):
+        wd = self.wd
+        self.open_home_page(wd)
+        self.logon(wd, username="admin", password="secret")
+        self.home_group_page(wd)
+        self.create_new_group(wd, Group(namegroup='', headergroup='', footergroup=''))
+        self.back_to_group_page(wd)
+        self.logout(wd)
+
+    def add_test_group(self):
+        wd = self.wd
+        self.open_home_page(wd)
+        self.logon(wd, username="admin", password="secret")
+        self.home_group_page(wd)
+        self.create_new_group(wd, Group(namegroup="new_group1", headergroup="new_group_1", footergroup="newgroup1"))
+        self.back_to_group_page(wd)
+        self.logout(wd)
+
     def setUp(self):
         self.wd = webdriver.Firefox()
         self.wd.implicitly_wait(30)
@@ -46,24 +64,6 @@ class AddTestGroup(unittest.TestCase):
 
     def logout(self, wd):
         wd.find_element_by_link_text("Logout").click()
-
-    def add_empty_test_group(self):
-        wd = self.wd
-        self.open_home_page(wd)
-        self.logon(wd, username="admin", password="secret")
-        self.home_group_page(wd)
-        self.create_new_group(wd, Group(namegroup='', headergroup='', footergroup=''))
-        self.back_to_group_page(wd)
-        self.logout(wd)
-
-    def add_test_group(self):
-        wd = self.wd
-        self.open_home_page(wd)
-        self.logon(wd, username="admin", password="secret")
-        self.home_group_page(wd)
-        self.create_new_group(wd, Group(namegroup="new_group1", headergroup="new_group_1", footergroup="newgroup1"))
-        self.back_to_group_page(wd)
-        self.logout(wd)
 
     def is_element_present(self, how, what):
         try:
