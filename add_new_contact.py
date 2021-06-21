@@ -68,16 +68,14 @@ class AddNewContact(unittest.TestCase):
         wd.find_element_by_name("email2").send_keys(contact.email2)
         wd.find_element_by_name("bday").click()
         Select(wd.find_element_by_name("bday")).select_by_visible_text(contact.bday)
-        wd.find_element_by_xpath("//option[@value='27']").click()
         wd.find_element_by_name("bmonth").click()
         Select(wd.find_element_by_name("bmonth")).select_by_visible_text(contact.bmonth)
-        wd.find_element_by_xpath("//option[@value='November']").click()
         wd.find_element_by_name("byear").click()
         wd.find_element_by_name("byear").clear()
         wd.find_element_by_name("byear").send_keys(contact.byear)
         wd.find_element_by_name("theform").click()
         # click create new contact
-        wd.find_element_by_xpath("//input[21]").click()
+        wd.find_element_by_xpath("//input[@value='Enter']").click()
 
     def login(self, wd, loginname, password):
         # login
