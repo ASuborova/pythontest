@@ -1,10 +1,14 @@
 from selenium import webdriver
 from selenium.webdriver.support.ui import Select
+from selenium.webdriver.firefox.webdriver import WebDriver
+from selenium.common.exceptions import NoSuchElementException
+from selenium.common.exceptions import NoAlertPresentException
 
-class Applicatin:
+
+class Aplicatin:
     def __init__(self):
         self.wd = webdriver.Firefox()
-        self.wd.implicitly_wait(30)
+        self.wd.implicitly_wait(60)
 
     def logout(self):
         wd = self.wd
@@ -54,7 +58,7 @@ class Applicatin:
         wd.find_element_by_name("theform").click()
         # click create new contact
         wd.find_element_by_xpath("//input[@value='Enter']").click()
-        #back nome page
+        # back nome page
         self.back_home_page()
 
     def login(self, loginname, password):
@@ -75,13 +79,6 @@ class Applicatin:
         # home page
         wd.get("http://localhost/addressbook/index.php")
 
-    def is_element_present(self, how, what):
-        try:
-            self.wd.find_element(by=how, value=what)
-        except NoSuchElementException as e:
-            return False
-        return True
-
     def is_alert_present(self):
         try:
             self.wd.switch_to_alert()
@@ -101,6 +98,12 @@ class Applicatin:
         finally:
             self.accept_next_alert = True
 
+    def is_element_present(self, how, what):
+        try:
+            self.wd.find_element(by=how, value=what)
+        except NoSuchElementException as e:
+            return False
+        return True
+
     def district(self):
         self.wd.quit()
-
