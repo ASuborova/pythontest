@@ -12,34 +12,34 @@ class AddNewContact(unittest.TestCase):
         self.wd.implicitly_wait(30)
 
     def add_test_new_contact(self):
-        wd = self.wd
-        self.open_home_page(wd)
-        self.login(wd, "admin", "secret")
-        self.create_new_contact(wd, Contact(firstname="Anna", middlename="Maria", lastname="Suborova", nickname="ASuboroa", title="friends", companyname="signatec", address="Novosibirsk",
-                                homephone="+79232274031", mobilephone="3834156789", mainemail="a.suborov_a@gmail.com", email2="anna_suborova@mail.ru", bday="28",
-                                bmonth="November", byear="1984"))
-        self.back_home_page(wd)
-        self.logout(wd)
+        self.login("admin", "secret")
+        self.create_new_contact(Contact(firstname="Anna", middlename="Maria", lastname="Suborova", nickname="ASuboroa",
+                                        title="friends", companyname="signatec", address="Novosibirsk",
+                                        homephone="+79232274031", mobilephone="3834156789",
+                                        mainemail="a.suborov_a@gmail.com", email2="anna_suborova@mail.ru", bday="28",
+                                        bmonth="November", byear="1984"))
+        self.logout()
 
     def add_empty_test_new_contact(self):
-        wd = self.wd
-        self.open_home_page(wd)
-        self.login(wd, "admin", "secret")
-        self.create_new_contact(wd, Contact(firstname="", middlename="", lastname="", nickname="", title="", companyname="", address="",
-                                homephone="", mobilephone="", mainemail="", email2="", bday="",
-                                bmonth="-", byear=""))
-        self.back_home_page(wd)
-        self.logout(wd)
+        self.login("admin", "secret")
+        self.create_new_contact(Contact(firstname="", middlename="", lastname="", nickname="", title="", companyname="",
+                                        address="",
+                                        homephone="", mobilephone="", mainemail="", email2="", bday="",
+                                        bmonth="-", byear=""))
+        self.logout()
 
-    def logout(self, wd):
+    def logout(self):
+        wd = self.wd
         # logout
         wd.find_element_by_link_text("Logout").click()
 
-    def back_home_page(self, wd):
+    def back_home_page(self):
+        wd = self.wd
         # back home page
         wd.find_element_by_link_text("home page").click()
 
-    def create_new_contact(self, wd, contact):
+    def create_new_contact(self, contact):
+        wd = self.wd
         # open page add new contact
         wd.find_element_by_link_text("add new").click()
         # init new contact
@@ -76,8 +76,13 @@ class AddNewContact(unittest.TestCase):
         wd.find_element_by_name("theform").click()
         # click create new contact
         wd.find_element_by_xpath("//input[@value='Enter']").click()
+        #back nome page
+        self.back_home_page()
 
-    def login(self, wd, loginname, password):
+    def login(self, loginname, password):
+        wd = self.wd
+        # open home page
+        self.open_home_page()
         # login
         wd.find_element_by_name("user").click()
         wd.find_element_by_name("user").clear()
@@ -87,7 +92,8 @@ class AddNewContact(unittest.TestCase):
         wd.find_element_by_name("pass").send_keys(password)
         wd.find_element_by_xpath("//input[@value='Login']").click()
 
-    def open_home_page(self, wd):
+    def open_home_page(self):
+        wd = self.wd
         # home page
         wd.get("http://localhost/addressbook/index.php")
 
