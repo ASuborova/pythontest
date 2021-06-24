@@ -18,13 +18,13 @@ def test_add_test_new_contact(app):
         Contact(firstname="Anna", middlename="Maria", lastname="Suborova", nickname="ASuboroa", title="friends",
                 companyname="signatec", address="Novosibirsk",
                 homephone="+79232274031", mobilephone="3834156789",
-                mainemail="a.suborov_a@gmail.com", email2="anna_suborova@mail.ru", bday="28",
-                bmonth="November", byear="1984"))
+                mainemail="a.suborov_a@gmail.com", email2="anna_suborova@mail.ru", bday="2",
+                bmonth="November", byear="1979"))
     app.test_logout()
 
 
 def test_add_empty_test_new_contact(app):
-    app.test_login("admin", "secret")
+    app.test_login(loginname="admin", password="secret")
     app.test_create_new_contact(Contact(firstname="", middlename="", lastname="", nickname="", title="", companyname="",
                                        address="",
                                        homephone="", mobilephone="", mainemail="", email2="", bday="",
