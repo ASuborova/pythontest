@@ -4,10 +4,15 @@ class SessionHelper:
     def __init__(self, ses_h):
         self.ses_h = ses_h
 
-    def test_login(self, loginname, password):
+    def open_home_page(self):
+        wd = self.ses_h.wd
+        # home page
+        wd.get("http://localhost/addressbook/index.php")
+
+    def login(self, loginname, password):
         wd = self.ses_h.wd
         # open home page
-        self.ses_h.test_open_home_page()
+        self.open_home_page()
         # login
         wd.find_element_by_name("user").click()
         wd.find_element_by_name("user").clear()
@@ -17,7 +22,7 @@ class SessionHelper:
         wd.find_element_by_name("pass").send_keys(password)
         wd.find_element_by_xpath("//input[@value='Login']").click()
 
-    def test_logout(self):
+    def logout(self):
         wd = self.ses_h.wd
         # logout
         wd.find_element_by_link_text("Logout").click()
