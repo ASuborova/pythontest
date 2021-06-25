@@ -1,27 +1,13 @@
-from selenium import webdriver
 from selenium.webdriver.support.ui import Select
-from selenium.webdriver.firefox.webdriver import WebDriver
-from selenium.common.exceptions import NoSuchElementException
-from selenium.common.exceptions import NoAlertPresentException
 
 
-class Aplicatin:
-    def __init__(self):
-        self.wd = webdriver.Firefox()
-        self.wd.implicitly_wait(60)
+class ContactHelper:
 
-    def logout(self):
-        wd = self.wd
-        # logout
-        wd.find_element_by_link_text("Logout").click()
+    def __init__(self, cont_h):
+        self.cont_h = cont_h
 
-    def back_home_page(self):
-        wd = self.wd
-        # back home page
-        wd.find_element_by_link_text("home page").click()
-
-    def create_new_contact(self, contact):
-        wd = self.wd
+    def test_create_new_contact(self, contact):
+        wd = self.cont_h.wd
         # open page add new contact
         wd.find_element_by_link_text("add new").click()
         # init new contact
@@ -59,51 +45,4 @@ class Aplicatin:
         # click create new contact
         wd.find_element_by_xpath("//input[@value='Enter']").click()
         # back nome page
-        self.back_home_page()
-
-    def login(self, loginname, password):
-        wd = self.wd
-        # open home page
-        self.open_home_page()
-        # login
-        wd.find_element_by_name("user").click()
-        wd.find_element_by_name("user").clear()
-        wd.find_element_by_name("user").send_keys(loginname)
-        wd.find_element_by_name("pass").click()
-        wd.find_element_by_name("pass").clear()
-        wd.find_element_by_name("pass").send_keys(password)
-        wd.find_element_by_xpath("//input[@value='Login']").click()
-
-    def open_home_page(self):
-        wd = self.wd
-        # home page
-        wd.get("http://localhost/addressbook/index.php")
-
-    def is_alert_present(self):
-        try:
-            self.wd.switch_to_alert()
-        except NoAlertPresentException as e:
-            return False
-        return True
-
-    def close_alert_and_get_its_text(self):
-        try:
-            alert = self.wd.switch_to_alert()
-            alert_text = alert.text
-            if self.accept_next_alert:
-                alert.accept()
-            else:
-                alert.dismiss()
-            return alert_text
-        finally:
-            self.accept_next_alert = True
-
-    def is_element_present(self, how, what):
-        try:
-            self.wd.find_element(by=how, value=what)
-        except NoSuchElementException as e:
-            return False
-        return True
-
-    def district(self):
-        self.wd.quit()
+        self.cont_h.test_back_home_page()
