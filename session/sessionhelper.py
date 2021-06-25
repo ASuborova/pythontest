@@ -4,15 +4,10 @@ class SessionHelper:
     def __init__(self, ses_h):
         self.ses_h = ses_h
 
-    def open_home_page(self):
-        wd = self.ses_h.wd
-        # home page
-        wd.get("http://localhost/addressbook/index.php")
-
     def login(self, loginname, password):
         wd = self.ses_h.wd
         # open home page
-        self.open_home_page()
+        self.ses_h.open_home_page()
         # login
         wd.find_element_by_name("user").click()
         wd.find_element_by_name("user").clear()

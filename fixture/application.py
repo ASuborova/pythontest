@@ -10,6 +10,11 @@ class Applicatin:
         self.ses_h = SessionHelper(self)
         self.cont_h = ContactHelper(self)
 
+    def open_home_page(self):
+        wd = self.wd
+        # home page
+        wd.get("http://localhost/addressbook/index.php")
+
     def back_home_page(self):
         wd = self.wd
         # back home page
