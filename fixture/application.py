@@ -15,10 +15,5 @@ class Applicatin:
         # home page
         wd.get("http://localhost/addressbook/index.php")
 
-    def back_home_page(self):
-        wd = self.wd
-        # back home page
-        wd.find_element_by_link_text("home page").click()
-
     def district(self):
         self.wd.quit()

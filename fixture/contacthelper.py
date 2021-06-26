@@ -6,9 +6,15 @@ class ContactHelper:
     def __init__(self, cont_h):
         self.cont_h = cont_h
 
+    def open_add_page(self):
+        wd = self.cont_h.wd
+        # open page add new contact
+        wd.find_element_by_link_text("add new").click()
+
     def create(self, contact):
         wd = self.cont_h.wd
         # open page add new contact
+        self.open_add_page()
         wd.find_element_by_link_text("add new").click()
         # init new contact
         wd.find_element_by_name("firstname").click()
@@ -45,4 +51,9 @@ class ContactHelper:
         # click create new contact
         wd.find_element_by_xpath("//input[@value='Enter']").click()
         # back nome page
-        self.cont_h.back_home_page()
+        self.back_home_page()
+
+    def back_home_page(self):
+        wd = self.cont_h.wd
+        # back home page
+        wd.find_element_by_link_text("home page").click()
