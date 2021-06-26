@@ -1,6 +1,6 @@
 from selenium import webdriver
-from session.sessionhelper import SessionHelper
-from session.contacthelper import ContactHelper
+from fixture.sessionhelper import SessionHelper
+from fixture.contacthelper import ContactHelper
 
 
 class Applicatin:

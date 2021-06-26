@@ -250,3 +250,28 @@ JavaScript error: http://localhost/dashboard/javascripts/all.js, line 5495: Synt
 Exiting due to channel error.
 Exiting due to channel error.
 Exiting due to channel error.
+1624681035939	geckodriver	INFO	Listening on 127.0.0.1:33571
+1624681035944	mozrunner::runner	INFO	Running command: "/usr/bin/firefox" "--marionette" "-foreground" "-no-remote" "-profile" "/tmp/rust_mozprofilebpycGF"
+1624681036617	Marionette	INFO	Marionette enabled
+console.info: MINT: Trying to use the system region (based on LANG).
+console.info: MINT: System region is RU
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new NotFoundError("Could not open the file at /tmp/rust_mozprofilebpycGF/search.json.mozlz4", (void 0)))
+console.info: MINT: Loading search-config defaults.
+JavaScript error: resource://gre/modules/TelemetryUtils.jsm, line 154: TypeError: date is undefined
+1624681038066	Marionette	INFO	Listening on port 41511
+1624681038164	Marionette	WARN	TLS certificate errors will be ignored for this session
+1624681041550	Marionette	INFO	Stopped listening on port 41511
+
+###!!! [Parent][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+1624681042082	geckodriver	INFO	Listening on 127.0.0.1:35811
+1624681043093	mozrunner::runner	INFO	Running command: "/usr/bin/firefox" "--marionette" "-foreground" "-no-remote" "-profile" "/tmp/rust_mozprofileJK7y4J"
+1624681043769	Marionette	INFO	Marionette enabled
+console.info: MINT: Trying to use the system region (based on LANG).
+console.info: MINT: System region is RU
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new NotFoundError("Could not open the file at /tmp/rust_mozprofileJK7y4J/search.json.mozlz4", (void 0)))
+console.info: MINT: Loading search-config defaults.
+JavaScript error: resource://gre/modules/TelemetryUtils.jsm, line 154: TypeError: date is undefined
+1624681045279	Marionette	INFO	Listening on port 41659
+1624681045316	Marionette	WARN	TLS certificate errors will be ignored for this session
+1624681048149	Marionette	INFO	Stopped listening on port 41659
