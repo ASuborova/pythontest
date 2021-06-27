@@ -29,6 +29,28 @@ class GroupHelper:
         # back page group
         self.back_page_group()
 
+    def edit_first_group(self, group):
+        wd = self.gr.wd
+        # open page group
+        self.open_group_page()
+        # select first element
+        wd.find_element_by_name("selected[]").click()
+        # edit select element
+        wd.find_element_by_name("edit").click()
+        wd.find_element_by_name("group_name").click()
+        wd.find_element_by_name("group_name").clear()
+        wd.find_element_by_name("group_name").send_keys(group.namegroup)
+        wd.find_element_by_name("group_header").click()
+        wd.find_element_by_name("group_header").clear()
+        wd.find_element_by_name("group_header").send_keys(group.header)
+        wd.find_element_by_name("group_footer").click()
+        wd.find_element_by_name("group_footer").clear()
+        wd.find_element_by_name("group_footer").send_keys(group.footer)
+        # edit selected group
+        wd.find_element_by_name("update").click()
+        # back page group
+        self.back_page_group()
+
     def del_first_group(self):
         wd = self.gr.wd
         # open page group

@@ -20,5 +20,6 @@ class SessionHelper:
     def logout(self):
         wd = self.ses_h.wd
         # logout
-        wd.find_element_by_link_text("Logout").click()
-        # wd.find_element_by_xpath("//input[@value='yes']").click()
+    #    wd.find_element_by_link_text("Logout").click()
+        wd.find_element_by_xpath("//a[contains(text(), 'Logout')]").click()
+
