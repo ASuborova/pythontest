@@ -1,6 +1,3 @@
-from selenium.webdriver.support.ui import Select
-
-
 class GroupHelper:
 
     def __init__(self, gr):
@@ -8,14 +5,14 @@ class GroupHelper:
 
     def open_group_page(self):
         wd = self.gr.wd
-        # open page add new contact
+        # open page group
         wd.find_element_by_link_text("groups").click()
 
     def create_group(self, group):
         wd = self.gr.wd
-        # open page add new contact
+        # open page group
         self.open_group_page()
-        # init new contact
+        # init new group
         wd.find_element_by_name("new").click()
         #
         wd.find_element_by_name("group_name").click()
@@ -29,12 +26,21 @@ class GroupHelper:
         wd.find_element_by_name("group_footer").send_keys(group.footer)
         # create new group
         wd.find_element_by_name("submit").click()
-        # click create new contact
-        # wd.find_element_by_xpath("//input[@value='Enter']").click()
-        # back nome page
+        # back page group
+        self.back_page_group()
+
+    def del_first_group(self):
+        wd = self.gr.wd
+        # open page group
+        self.open_group_page()
+        # select first element
+        wd.find_element_by_name("selected[]").click()
+        # click and delete selected element
+        wd.find_element_by_xpath("//input[@value='Delete group(s)']").click()
+        # back page group
         self.back_page_group()
 
     def back_page_group(self):
         wd = self.gr.wd
-        # back home page
+        # back page group
         wd.find_element_by_link_text("group page").click()
