@@ -2,7 +2,7 @@ import pytest
 from fixture.application import Applicatin
 
 
-@pytest.fixture(scope="session")
+@pytest.fixture()
 def app():
     fixture_create = Applicatin()
     yield fixture_create
