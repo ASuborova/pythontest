@@ -1,9 +1,9 @@
 import pytest
-from fixture.application import Applicatin
+from fixture.application import Application
 
 
 @pytest.fixture(scope="session")
 def app():
-    fixture_create = Applicatin()
+    fixture_create = Application()
     yield fixture_create
-    Applicatin.district(fixture_create)
+    Application.district(fixture_create)
