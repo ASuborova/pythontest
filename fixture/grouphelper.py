@@ -10,15 +10,21 @@ class GroupHelper:
 
     def attributes_group(self, group):
         wd = self.gr.wd
-        wd.find_element_by_name("group_name").click()
-        wd.find_element_by_name("group_name").clear()
-        wd.find_element_by_name("group_name").send_keys(group.namegroup)
-        wd.find_element_by_name("group_header").click()
-        wd.find_element_by_name("group_header").clear()
-        wd.find_element_by_name("group_header").send_keys(group.header)
-        wd.find_element_by_name("group_footer").click()
-        wd.find_element_by_name("group_footer").clear()
-        wd.find_element_by_name("group_footer").send_keys(group.footer)
+        self.change_field("group_name", group.namegroup)
+        self.change_field("group_header", group.header)
+        self.change_field("group_footer", group.footer)
+
+    def change_field(self, field_name, text):
+        wd = self.gr.wd
+        if text is not None:
+            wd.find_element_by_name(field_name).click()
+            wd.find_element_by_name(field_name).clear()
+            wd.find_element_by_name(field_name).send_keys(text)
+
+    def select_first_element(self):
+        wd = self.gr.wd
+        # select first element
+        wd.find_element_by_name("selected[]").click()
 
     def create_group(self, group):
         wd = self.gr.wd
@@ -37,8 +43,7 @@ class GroupHelper:
         wd = self.gr.wd
         # open page group
         self.open_group_page()
-        # select first element
-        wd.find_element_by_name("selected[]").click()
+        self.select_first_element()
         # click edit group
         wd.find_element_by_name("edit").click()
         # get attributes group
@@ -52,8 +57,7 @@ class GroupHelper:
         wd = self.gr.wd
         # open page group
         self.open_group_page()
-        # select first element
-        wd.find_element_by_name("selected[]").click()
+        self.select_first_element()
         # click and delete selected element
         wd.find_element_by_xpath("//input[@value='Delete group(s)']").click()
         # back page group

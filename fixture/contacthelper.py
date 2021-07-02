@@ -1,5 +1,6 @@
 from selenium.webdriver.support.ui import Select
 
+
 class ContactHelper:
 
     def __init__(self, cont_h):
@@ -10,40 +11,39 @@ class ContactHelper:
         # open page add new contact
         wd.find_element_by_link_text("add new").click()
 
+    def select_first_element(self):
+        wd = self.cont_h.wd
+        # select first element
+        wd.find_element_by_name("selected[]").click()
+
     def attributes_contact(self, contact):
         # get attributes contact
         wd = self.cont_h.wd
-        wd.find_element_by_name("firstname").click()
-        wd.find_element_by_name("firstname").clear()
-        wd.find_element_by_name("firstname").send_keys(contact.firstname)
-        wd.find_element_by_name("middlename").clear()
-        wd.find_element_by_name("middlename").send_keys(contact.middlename)
-        wd.find_element_by_name("lastname").clear()
-        wd.find_element_by_name("lastname").send_keys(contact.lastname)
-        wd.find_element_by_name("nickname").clear()
-        wd.find_element_by_name("nickname").send_keys(contact.nickname)
-        wd.find_element_by_name("title").clear()
-        wd.find_element_by_name("title").send_keys(contact.title)
-        wd.find_element_by_name("company").clear()
-        wd.find_element_by_name("company").send_keys(contact.companyname)
-        wd.find_element_by_name("address").clear()
-        wd.find_element_by_name("address").send_keys(contact.address)
-        wd.find_element_by_name("home").clear()
-        wd.find_element_by_name("home").send_keys(contact.homephone)
-        wd.find_element_by_name("mobile").clear()
-        wd.find_element_by_name("mobile").send_keys(contact.mobilephone)
-        wd.find_element_by_name("email").clear()
-        wd.find_element_by_name("email").send_keys(contact.mainemail)
-        wd.find_element_by_name("email2").clear()
-        wd.find_element_by_name("email2").send_keys(contact.email2)
-        wd.find_element_by_name("bday").click()
-        Select(wd.find_element_by_name("bday")).select_by_visible_text(contact.bday)
-        wd.find_element_by_name("bmonth").click()
-        Select(wd.find_element_by_name("bmonth")).select_by_visible_text(contact.bmonth)
-        wd.find_element_by_name("byear").click()
-        wd.find_element_by_name("byear").clear()
-        wd.find_element_by_name("byear").send_keys(contact.byear)
-        # wd.find_element_by_name("theform").click()
+        self.change_field("firstname", contact.firstname)
+        self.change_field("middlename", contact.middlename)
+        self.change_field("lastname", contact.lastname)
+        self.change_field("nickname", contact.nickname)
+        self.change_field("title", contact.title)
+        self.change_field("company", contact.companyname)
+        self.change_field("address", contact.address)
+        self.change_field("home", contact.homephone)
+        self.change_field("mobile", contact.mobilephone)
+        self.change_field("email", contact.mainemail)
+        self.change_field("email2", contact.email2)
+        self.change_field("bday", contact.bday)
+        self.change_field("bmonth", contact.bmonth)
+        self.change_field("byear", contact.byear)
+
+    def change_field(self, field_name, text):
+        wd = self.cont_h.wd
+        if text is not None:
+            if (field_name == "bday") or (field_name == "bmonth"):
+                wd.find_element_by_name(field_name).click()
+                Select(wd.find_element_by_name(field_name)).select_by_visible_text(text)
+            else:
+                wd.find_element_by_name(field_name).click()
+                wd.find_element_by_name(field_name).clear()
+                wd.find_element_by_name(field_name).send_keys(text)
 
     def create(self, contact):
         wd = self.cont_h.wd
@@ -60,8 +60,7 @@ class ContactHelper:
         wd = self.cont_h.wd
         # open home page
         wd.find_element_by_link_text("home").click()
-        # select edit contact
-        wd.find_element_by_name("selected[]").click()
+        self.select_first_element()
         # click edit
         wd.find_element_by_xpath("//img[@alt='Edit']").click()
         # get attributes contact
@@ -75,8 +74,7 @@ class ContactHelper:
         wd = self.cont_h.wd
         # open home page
         wd.find_element_by_link_text("home").click()
-        # select first element
-        wd.find_element_by_name("selected[]").click()
+        self.select_first_element()
         # click delete selected element
         wd.find_element_by_xpath("//input[@value='Delete']").click()
         # alert accept
