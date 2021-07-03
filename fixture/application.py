@@ -7,7 +7,7 @@ from fixture.grouphelper import GroupHelper
 class Application:
     def __init__(self):
         self.wd = webdriver.Firefox()
-        self.wd.implicitly_wait(60)
+        self.wd.implicitly_wait(5)
         self.ses_h = SessionHelper(self)
         self.cont_h = ContactHelper(self)
         self.gr = GroupHelper(self)
