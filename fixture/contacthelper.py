@@ -58,8 +58,7 @@ class ContactHelper:
 
     def edit_first_contact(self, contact):
         wd = self.cont_h.wd
-        # open home page
-        wd.find_element_by_link_text("home").click()
+        self.open_home_page()
         self.select_first_element()
         # click edit
         wd.find_element_by_xpath("//img[@alt='Edit']").click()
@@ -72,13 +71,17 @@ class ContactHelper:
 
     def del_first_contact(self):
         wd = self.cont_h.wd
-        # open home page
-        wd.find_element_by_link_text("home").click()
+        self.open_home_page()
         self.select_first_element()
         # click delete selected element
         wd.find_element_by_xpath("//input[@value='Delete']").click()
         # alert accept
         wd.switch_to_alert().accept()
+
+    def open_home_page(self):
+        wd = self.cont_h.wd
+        if not(wd.current_url.endswith("/index.php")):
+            wd.find_element_by_link_text("home").click()
 
     def back_home_page(self):
         wd = self.cont_h.wd

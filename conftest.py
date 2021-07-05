@@ -20,7 +20,7 @@ def app():
 def stop(request):
     def fin():
         fixture_create.ses_h.is_logout()
-        Application.district(fixture_create)
+        fixture_create.district()
     # yield fixture_create
     request.addfinalizer(fin)
     return fixture_create
