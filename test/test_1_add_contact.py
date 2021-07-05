@@ -14,3 +14,4 @@ def test_add_empty_contact(app):
     app.cont_h.create(Contact(firstname="", middlename="", lastname="", nickname="", title="", companyname="",
                                        address="", homephone="", mobilephone="", mainemail="", email2="", bday=None, bmonth=None, byear=None))
 
+
