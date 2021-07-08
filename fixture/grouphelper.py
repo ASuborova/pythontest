@@ -65,8 +65,8 @@ class GroupHelper:
 
     def back_page_group(self):
         wd = self.gr.wd
-        # back page group
-        wd.find_element_by_link_text("group page").click()
+        if wd.current_url.endswith("/group.php") and wd.find_element_by_link_text("group page").text == "group page":
+            wd.find_element_by_link_text("group page").click()
 
     def count(self):
         wd = self.gr.wd

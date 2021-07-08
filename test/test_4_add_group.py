@@ -6,6 +6,6 @@ def test_add_group(app):
 
 
 def test_add_empty_group(app):
-    app.gr.create_group(Group(namegroup="", header="", footer=""))
+    app.gr.create_group(Group())
 
 
