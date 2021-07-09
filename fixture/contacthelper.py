@@ -1,4 +1,5 @@
 from selenium.webdriver.support.ui import Select
+from model.contact import Contact
 
 
 class ContactHelper:
@@ -77,6 +78,7 @@ class ContactHelper:
         wd.find_element_by_xpath("//input[@value='Delete']").click()
         # alert accept
         wd.switch_to_alert().accept()
+        wd.find_element_by_css_selector("div.msgbox")
 
     def open_home_page(self):
         wd = self.cont_h.wd
@@ -90,5 +92,15 @@ class ContactHelper:
 
     def count(self):
         wd = self.cont_h.wd
-        wd.find_element_by_link_text("home").click()
+        self.open_home_page()
         return len(wd.find_elements_by_name("selected[]"))
+
+    def get_list_contact(self):
+        wd = self.cont_h.wd
+        self.open_home_page()
+        contact_list = []
+        for element in (wd.find_elements_by_name("selected[]")):
+            text_contact = element.get_attribute("text")
+            id_contact = element.get_attribute("value")
+            contact_list.append(Contact(firstname=text_contact, id=id_contact))
+        return contact_list
