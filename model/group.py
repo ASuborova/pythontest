@@ -4,3 +4,10 @@ class Group:
         self.header = header
         self.footer = footer
         self.id = id
+
+    def __repr__(self):
+        return "%s:%s" % (self.id, self.namegroup)
+
+    def __eq__(self, other):
+        return self.id == other and self.namegroup == other
+
