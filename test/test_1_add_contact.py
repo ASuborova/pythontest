@@ -13,6 +13,7 @@ def test_add_new_contact(app):
     new_list_contact = app.cont_h.get_list_contact()
     assert len(old_list_contact) + 1 == len(new_list_contact)
     old_list_contact.append(contact)
+    old_list_contact = app.cont_h.get_list_contact()
 
     def id_max(cont):
         if cont.id:
