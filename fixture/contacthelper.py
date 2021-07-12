@@ -107,7 +107,7 @@ class ContactHelper:
                 cells_text = cells.text
                 if cells_text != '':
                     text_contact.append(cells_text)
-                    text_contact[1:2] = []
+                    text_contact[1:3] = []
             id_contact = wd.find_element_by_name("selected[]").get_attribute("value")
             contact_list.append(Contact(id=id_contact, lastname=text_contact))
 
