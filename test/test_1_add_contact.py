@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 from model.contact import Contact
-from sys import maxsize
 
 
 def test_add_new_contact(app):
@@ -13,21 +12,16 @@ def test_add_new_contact(app):
     new_list_contact = app.cont_h.get_list_contact()
     assert len(old_list_contact) + 1 == len(new_list_contact)
     old_list_contact.append(contact)
-    old_list_contact = app.cont_h.get_list_contact()
-
-    def id_max(cont):
-        if cont.id:
-            return int(cont.id)
-        else:
-            return maxsize
-    assert sorted(old_list_contact, key=id_max) == sorted(new_list_contact, key=id_max)
+    assert sorted(old_list_contact, key=Contact.id_max) == sorted(new_list_contact, key=Contact.id_max)
 
 
-'''
 def test_add_empty_contact(app):
     old_list_contact = app.cont_h.get_list_contact()
-    app.cont_h.create(Contact())
+    contact = Contact(firstname="", lastname="")
+    app.cont_h.create(contact)
     new_list_contact = app.cont_h.get_list_contact()
     assert len(old_list_contact) + 1 == len(new_list_contact)
-    '''
+    old_list_contact.append(contact)
+    assert sorted(old_list_contact, key=Contact.id_max) == sorted(new_list_contact, key=Contact.id_max)
+
 

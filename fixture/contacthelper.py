@@ -103,12 +103,11 @@ class ContactHelper:
         contact_list = []
         text_contact = []
         for element in (wd.find_elements_by_css_selector("[name=entry]")):
-            for cells in (wd.find_elements_by_tag_name("td")):
-                cells_text = cells.text
-                if cells_text != '':
-                    text_contact.append(cells_text)
-                    text_contact[1:3] = []
+            cells = wd.find_elements_by_tag_name("td")
+            # for cells in (wd.find_elements_by_tag_name("td")):
+            # text_contact.append(cells.text)
             id_contact = wd.find_element_by_name("selected[]").get_attribute("value")
-            contact_list.append(Contact(id=id_contact, lastname=text_contact))
+            # contact_list.append(Contact(id=id_contact, lastname=text_contact[0], firstname=text_contact[1]))
+            contact_list.append(Contact(id=id_contact, lastname=cells[0].text, firstname=cells[1].text))
 
         return contact_list
