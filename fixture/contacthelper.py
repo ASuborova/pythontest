@@ -1,5 +1,6 @@
 from selenium.webdriver.support.ui import Select
 from model.contact import Contact
+import re
 
 
 
@@ -105,6 +106,6 @@ class ContactHelper:
             for cells in (wd.find_elements_by_tag_name("td")):
                 text_contact.append(cells.text)
             id_contact = wd.find_element_by_name("selected[]").get_attribute("value")
-            contact_list.append(Contact(id=id_contact, lastname=text_contact[0], firstname=text_contact[1]))
+            contact_list.append(Contact(id=id_contact, lastname=text_contact[1], firstname=text_contact[2]))
 
         return contact_list
