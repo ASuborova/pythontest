@@ -13,7 +13,7 @@ def test_edit_name_group(app):
     old_groups[0] = group
     assert sorted(old_groups, key=Group.id_max) == sorted(new_groups, key=Group.id_max)
 
-'''
+
 def test_edit_header_group(app):
     if app.gr.count() == 0:
         app.gr.create_group(Group())
@@ -25,4 +25,4 @@ def test_edit_header_group(app):
     assert len(old_groups) == len(new_groups)
     old_groups[0] = group
     assert sorted(old_groups, key=Group.id_max) == sorted(new_groups, key=Group.id_max)
-    '''
+

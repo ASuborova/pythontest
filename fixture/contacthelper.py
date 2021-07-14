@@ -1,6 +1,5 @@
 from selenium.webdriver.support.ui import Select
 from model.contact import Contact
-import re
 
 
 
@@ -101,11 +100,10 @@ class ContactHelper:
         wd = self.cont_h.wd
         self.open_home_page()
         contact_list = []
-        text_contact = []
         for element in (wd.find_elements_by_css_selector("[name=entry]")):
-            for cells in (wd.find_elements_by_tag_name("td")):
-                text_contact.append(cells.text)
-            id_contact = wd.find_element_by_name("selected[]").get_attribute("value")
-            contact_list.append(Contact(id=id_contact, lastname=text_contact[1], firstname=text_contact[2]))
-
+            cells = element.find_elements_by_tag_name("td")
+            id_contact = cells[0].find_element_by_name("selected[]").get_attribute("value")
+            text_lastname = cells[1].text
+            text_firstname = cells[2].text
+            contact_list.append(Contact(id=id_contact, lastname=text_lastname, firstname=text_firstname))
         return contact_list
