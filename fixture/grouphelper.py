@@ -40,6 +40,7 @@ class GroupHelper:
         wd.find_element_by_name("submit").click()
         # back page group
         self.back_page_group()
+        self.group_cash = None
 
     def edit_first_group(self, group):
         wd = self.gr.wd
@@ -54,6 +55,7 @@ class GroupHelper:
         wd.find_element_by_name("update").click()
         # back page group
         self.back_page_group()
+        self.group_cash = None
 
     def del_first_group(self):
         wd = self.gr.wd
@@ -64,6 +66,7 @@ class GroupHelper:
         wd.find_element_by_xpath("//input[@value='Delete group(s)']").click()
         # back page group
         self.back_page_group()
+        self.group_cash = None
 
     def back_page_group(self):
         wd = self.gr.wd
@@ -75,12 +78,15 @@ class GroupHelper:
         self.open_group_page()
         return len(wd.find_elements_by_name("selected[]"))
 
+    group_cash = None
+
     def get_group_list(self):
-        wd = self.gr.wd
-        self.open_group_page()
-        group_list = []
-        for element in (wd.find_elements_by_css_selector("span.group")):
-            text_group = element.text
-            id_group = element.find_element_by_name("selected[]").get_attribute("value")
-            group_list.append(Group(id=id_group, namegroup=text_group))
-        return list(group_list)
+        if self.group_cash is None:
+            wd = self.gr.wd
+            self.open_group_page()
+            self.group_cash = []
+            for element in (wd.find_elements_by_css_selector("span.group")):
+                text_group = element.text
+                id_group = element.find_element_by_name("selected[]").get_attribute("value")
+                self.group_cash.append(Group(id=id_group, namegroup=text_group))
+        return list(self.group_cash)
