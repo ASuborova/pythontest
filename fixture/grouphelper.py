@@ -25,48 +25,37 @@ class GroupHelper:
 
     def select_first_element(self):
         wd = self.gr.wd
-        # select first element
         wd.find_element_by_name("selected[]").click()
+
+    def select_element_by_index(self, index_element):
+        wd = self.gr.wd
+        wd.find_elements_by_name("selected[]")[index_element].click()
 
     def create_group(self, group):
         wd = self.gr.wd
-        # open page group
         self.open_group_page()
-        # init new group
         wd.find_element_by_name("new").click()
-        #
         self.attributes_group(group)
-        # create new group
         wd.find_element_by_name("submit").click()
-        # back page group
         self.back_page_group()
         self.group_cash = None
 
     def edit_first_group(self, group):
+        self.edit_group_by_index(group, 0)
+
+    def edit_group_by_index(self, group, index_group):
         wd = self.gr.wd
-        # open page group
         self.open_group_page()
-        self.select_first_element()
-        # click edit group
+        # self.select_first_element()
+        self.select_element_by_index(index_group)
         wd.find_element_by_name("edit").click()
-        # get attributes group
         self.attributes_group(group)
-        # update selected group
         wd.find_element_by_name("update").click()
-        # back page group
         self.back_page_group()
         self.group_cash = None
 
     def del_first_group(self):
-        wd = self.gr.wd
-        # open page group
-        self.open_group_page()
-        self.select_first_element()
-        # click and delete selected element
-        wd.find_element_by_xpath("//input[@value='Delete group(s)']").click()
-        # back page group
-        self.back_page_group()
-        self.group_cash = None
+        self.del_group_by_index(0)
 
     def back_page_group(self):
         wd = self.gr.wd
@@ -90,3 +79,13 @@ class GroupHelper:
                 id_group = element.find_element_by_name("selected[]").get_attribute("value")
                 self.group_cash.append(Group(id=id_group, namegroup=text_group))
         return list(self.group_cash)
+
+    def del_group_by_index(self, index_dy_group):
+        wd = self.gr.wd
+        self.open_group_page()
+        self.select_element_by_index(index_dy_group)
+        wd.find_element_by_xpath("//input[@value='Delete group(s)']").click()
+        self.back_page_group()
+        self.group_cash = None
+
+

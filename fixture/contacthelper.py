@@ -15,8 +15,11 @@ class ContactHelper:
 
     def select_first_element(self):
         wd = self.cont_h.wd
-        # select first element
         wd.find_element_by_name("selected[]").click()
+
+    def select_element_by_index(self, index_contact):
+        wd = self.cont_h.wd
+        wd.find_elements_by_name("selected[]")[index_contact].click()
 
     def attributes_contact(self, contact):
         # get attributes contact
@@ -60,26 +63,28 @@ class ContactHelper:
         self.contact_cash = None
 
     def edit_first_contact(self, contact):
+        self.edit_contact_by_index(contact, 0)
+
+    def edit_contact_by_index(self, contact, index_element):
         wd = self.cont_h.wd
         self.open_home_page()
-        self.select_first_element()
-        # click edit
+        # self.select_first_element()
+        self.select_element_by_index(index_element)
         wd.find_element_by_xpath("//img[@alt='Edit']").click()
-        # get attributes contact
         self.attributes_contact(contact)
-        # click update
         wd.find_element_by_xpath("//input[@value='Update']").click()
-        # back nome page
         self.back_home_page()
         self.contact_cash = None
 
     def del_first_contact(self):
+        self.del_contact_by_index(0)
+
+    def del_contact_by_index(self, index_del_contact):
         wd = self.cont_h.wd
         self.open_home_page()
-        self.select_first_element()
-        # click delete selected element
+        # self.select_first_element()
+        self.select_element_by_index(index_del_contact)
         wd.find_element_by_xpath("//input[@value='Delete']").click()
-        # alert accept
         wd.switch_to_alert().accept()
         wd.find_element_by_css_selector("div.msgbox")
         self.contact_cash = None
@@ -113,3 +118,4 @@ class ContactHelper:
                 text_firstname = cells[2].text
                 self.contact_cash.append(Contact(id=id_contact, lastname=text_lastname, firstname=text_firstname))
         return list(self.contact_cash)
+
