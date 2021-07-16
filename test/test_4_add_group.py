@@ -2,6 +2,7 @@ from model.group import Group
 
 
 def test_add_group(app):
+
     old_groups = app.gr.get_group_list()
     group = Group(namegroup="group_1", header="Zagolovok", footer="Podval")
     app.gr.create_group(group)

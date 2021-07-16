@@ -70,7 +70,7 @@ class ContactHelper:
         self.open_home_page()
         # self.select_first_element()
         self.select_element_by_index(index_element)
-        wd.find_element_by_xpath("//img[@alt='Edit']").click()
+        wd.find_elements_by_xpath("//img[@alt='Edit']")[index_element].click()
         self.attributes_contact(contact)
         wd.find_element_by_xpath("//input[@value='Update']").click()
         self.back_home_page()
