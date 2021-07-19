@@ -46,7 +46,6 @@ class GroupHelper:
     def edit_group_by_index(self, group, index_group):
         wd = self.gr.wd
         self.open_group_page()
-        # self.select_first_element()
         self.select_element_by_index(index_group)
         wd.find_element_by_name("edit").click()
         self.attributes_group(group)
@@ -84,7 +83,8 @@ class GroupHelper:
         wd = self.gr.wd
         self.open_group_page()
         self.select_element_by_index(index_dy_group)
-        wd.find_element_by_xpath("//input[@value='Delete group(s)']").click()
+        # wd.find_element_by_xpath("//input[@value='Delete group(s)']").click()
+        wd.find_element_by_name("delete").click()
         self.back_page_group()
         self.group_cash = None
 

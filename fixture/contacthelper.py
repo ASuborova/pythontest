@@ -10,7 +10,6 @@ class ContactHelper:
 
     def open_add_page(self):
         wd = self.cont_h.wd
-        # open page add new contact
         wd.find_element_by_link_text("add new").click()
 
     def select_first_element(self):
@@ -22,7 +21,6 @@ class ContactHelper:
         wd.find_elements_by_name("selected[]")[index_contact].click()
 
     def attributes_contact(self, contact):
-        # get attributes contact
         wd = self.cont_h.wd
         self.change_field("firstname", contact.firstname)
         self.change_field("middlename", contact.middlename)
@@ -52,13 +50,10 @@ class ContactHelper:
 
     def create(self, contact):
         wd = self.cont_h.wd
-        # open page add new contact
-        self.open_add_page()
-        # get attributes contact
+        self.cont_h.open_home_page()
+        wd.find_element_by_link_text("add new").click()
         self.attributes_contact(contact)
-        # click create new contact
-        wd.find_element_by_xpath("//input[@value='Enter']").click()
-        # back nome page
+        wd.find_element_by_name("submit").click()
         self.back_home_page()
         self.contact_cash = None
 
@@ -67,11 +62,10 @@ class ContactHelper:
 
     def edit_contact_by_index(self, contact, index_element):
         wd = self.cont_h.wd
-        self.open_home_page()
-        # self.select_element_by_index(index_element)
-        wd.find_elements_by_xpath("//img[@alt='Edit']")[index_element].click()
+        self.cont_h.open_home_page()
+        wd.find_elements_by_css_selector("img[alt='Edit']")[index_element].click()
         self.attributes_contact(contact)
-        wd.find_element_by_xpath("//input[@value='Update']").click()
+        wd.find_element_by_name("update").click()
         self.back_home_page()
         self.contact_cash = None
 
@@ -80,27 +74,21 @@ class ContactHelper:
 
     def del_contact_by_index(self, index_del_contact):
         wd = self.cont_h.wd
-        self.open_home_page()
-        # self.select_first_element()
+        self.cont_h.open_home_page()
         self.select_element_by_index(index_del_contact)
         wd.find_element_by_xpath("//input[@value='Delete']").click()
         wd.switch_to_alert().accept()
         wd.find_element_by_css_selector("div.msgbox")
         self.contact_cash = None
 
-    def open_home_page(self):
+    def back_home_page(self):
         wd = self.cont_h.wd
         if not(wd.current_url.endswith("/index.php")):
             wd.find_element_by_link_text("home").click()
 
-    def back_home_page(self):
-        wd = self.cont_h.wd
-        if not(wd.current_url.endswith("/index.php")):
-            wd.find_element_by_link_text("home page").click()
-
     def count(self):
         wd = self.cont_h.wd
-        self.open_home_page()
+        self.cont_h.open_home_page()
         return len(wd.find_elements_by_name("selected[]"))
 
     contact_cash = None
@@ -108,11 +96,11 @@ class ContactHelper:
     def get_list_contact(self):
         if self.contact_cash is None:
             wd = self.cont_h.wd
-            self.open_home_page()
+            self.cont_h.open_home_page()
             self.contact_cash = []
             for element in (wd.find_elements_by_css_selector("[name=entry]")):
                 cells = element.find_elements_by_tag_name("td")
-                id_contact = cells[0].find_element_by_name("selected[]").get_attribute("value")
+                id_contact = cells[0].find_element_by_tag_name("input").get_attribute("value")
                 text_lastname = cells[1].text
                 text_firstname = cells[2].text
                 self.contact_cash.append(Contact(id=id_contact, lastname=text_lastname, firstname=text_firstname))
