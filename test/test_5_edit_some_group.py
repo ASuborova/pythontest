@@ -10,8 +10,9 @@ def test_edit_some_group(app):
     group = Group(namegroup="New_group_name")
     group.id = old_groups[index_edit_group].id
     app.gr.edit_group_by_index(group, index_edit_group)
+    # assert len(old_groups) == len(new_groups)
+    assert len(old_groups) == app.gr.count()
     new_groups = app.gr.get_group_list()
-    assert len(old_groups) == len(new_groups)
     old_groups[index_edit_group] = group
     assert sorted(old_groups, key=Group.id_max) == sorted(new_groups, key=Group.id_max)
 
