@@ -1,16 +1,31 @@
 from model.contact import Contact
 from random import randrange
+import re
 
 
-def test_compare_some_contact(app):
+def test_compare_contact(app):
     if app.cont_h.count() == 0:
         app.cont_h.create(Contact())
-    old_list_contact = app.cont_h.get_list_contact()
-    index_edit_contact = randrange(len(old_list_contact))
-    contact = Contact(lastname="new lastname", firstname="New_firstname")
-    contact.id = old_list_contact[index_edit_contact].id
-    app.cont_h.compare_contact_by_index(contact, index_edit_contact)
-    new_list_contact = app.cont_h.get_list_contact()
-    assert len(old_list_contact) == len(new_list_contact)
-    old_list_contact[index_edit_contact] = contact
-    assert sorted(old_list_contact, key=Contact.id_max) == sorted(new_list_contact, key=Contact.id_max)
+    all_contact = app.cont_h.get_list_contact()
+    index_compare = randrange(len(all_contact))
+    contact_from_view_page = app.cont_h.join_get_contact_info_from_view_page(index_compare)
+    contact_from_edit_page = app.cont_h.join_get_contact_info_from_edit_page(index_compare)
+
+    assert all_phones_on_view_page(contact_from_view_page) == all_phones_on_home_page(contact_from_edit_page)
+    assert contact_from_view_page.emails_view == all_emails_on_home_page(contact_from_edit_page)
+
+
+def all_phones_on_home_page(contact):
+    return "\n".join(filter(lambda x: x != "", map(lambda x: clean(x), filter(lambda x: x is not None, [contact.homephone, contact.mobilephone, contact.workphone]))))
+
+
+def all_phones_on_view_page(contact):
+    return "\n".join(filter(lambda x: x != "", map(lambda x: clean(x), filter(lambda x: x is not None, [contact.phones_view]))))
+
+
+def all_emails_on_home_page(contact):
+    return "\n".join(filter(lambda x: x != "", map(lambda x: clean(x), filter(lambda x: x is not None, [contact.mainemail, contact.email2, contact.email3]))))
+
+
+def clean(s):
+    return re.sub("[() -]", "", s)

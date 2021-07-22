@@ -106,29 +106,61 @@ class ContactHelper:
                 text_lastname = cells[1].text
                 text_firstname = cells[2].text
                 text_address = cells[3].text
-                text_all_email = cells[4].text.splitlines()
-                text_all_phone = cells[5].text.splitlines()
+                text_email_home = cells[4].text.splitlines()
+                text_phone_home = cells[5].text.splitlines()
+                text_email_view = cells[4].text
+                text_phone_view = cells[5].text
                 self.contact_cash.append(
                     Contact(id=id_contact, lastname=text_lastname, firstname=text_firstname, address=text_address,
-                            all_emails=text_all_email, all_phones=text_all_phone))
-
-                # self.contact_cash.append(Contact(id=id_contact, lastname=text_lastname, firstname=text_firstname, address=text_address, mainemail=text_all_email[0], email2=text_all_email[1], email3=text_all_email[2], homephone=text_all_phone[0], mobilephone=text_all_phone[1], workphone=text_all_phone[2]))
+                            emails_home=text_email_home, phones_home=text_phone_home, emails_view=text_email_view,
+                            phones_view=text_phone_view, mainemail=text_email_home[0], email2=text_email_home[1],
+                            email3=text_email_home[2], homephone=text_phone_home[0], mobilephone=text_phone_home[1],
+                            workphone=text_phone_home[2]))
         return list(self.contact_cash)
 
-    def compare_contact_by_index(self, contact, index_compare_contact):
+    def open_contact_to_edit_by_index(self, index):
         wd = self.cont_h.wd
         self.cont_h.open_home_page()
-        self.select_element_by_index(index_compare_contact)
-        wd.find_element_by_xpath("//input[@value='Delete']").click()
-        wd.switch_to_alert().accept()
-        wd.find_element_by_css_selector("div.msgbox")
-        self.contact_cash = None
+        row = wd.find_elements_by_css_selector("[name=entry]")[index]
+        cells = row.find_elements_by_tag_name("td")[7]
+        cells.find_element_by_tag_name("a").click()
 
-    def edit_contact_by_index(self, contact, index_element):
+    def open_contact_view_by_index(self, index):
         wd = self.cont_h.wd
         self.cont_h.open_home_page()
-        wd.find_elements_by_css_selector("img[alt='Edit']")[index_element].click()
-        self.attributes_contact(contact)
-        wd.find_element_by_name("update").click()
-        self.back_home_page()
-        self.contact_cash = None
+        row = wd.find_elements_by_css_selector("[name=entry]")[index]
+        cell = row.find_elements_by_tag_name("td")[6]
+        cell.find_element_by_tag_name("a").click()
+
+    def join_get_contact_info_from_edit_page(self, index):
+        wd = self.cont_h.wd
+        self.open_contact_to_edit_by_index(index)
+        firstname = wd.find_element_by_name("firstname").get_attribute("value")
+        lastname = wd.find_element_by_name("lastname").get_attribute("value")
+        email = wd.find_element_by_name("email").get_attribute("value")
+        email2 = wd.find_element_by_name("email2").get_attribute("value")
+        email3 = wd.find_element_by_name("email3").get_attribute("value")
+        id_contact = wd.find_element_by_name("id").get_attribute("value")
+        home = wd.find_element_by_name("home").get_attribute("value")
+        mobile = wd.find_element_by_name("mobile").get_attribute("value")
+        work = wd.find_element_by_name("work").get_attribute("value")
+        address = wd.find_element_by_name("address").get_attribute("value")
+        return Contact(firstname=firstname, lastname=lastname, mainemail=email, email2=email2, email3=email3, id=id_contact, homephone=home, mobilephone=mobile, workphone=work, address=address)
+
+    def join_get_contact_info_from_view_page(self, index):
+        wd = self.cont_h.wd
+        self.open_contact_view_by_index(index)
+        text = wd.find_element_by_id("content").text
+
+        all_info_on_page = re.search('H: (.*)\nM: (.*)\nW: (.*)', text).group()
+        all_phones_on_page = re.findall(r'[^H:M:W:]', all_info_on_page)
+        all_phones = ''.join(all_phones_on_page)
+
+
+        emails_list = re.findall("([a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+)", text)
+        all_emails = '\n'.join(emails_list)
+
+        return Contact(phones_view=all_phones, emails_view=all_emails)
+
+
+
