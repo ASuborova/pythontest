@@ -145,7 +145,8 @@ class ContactHelper:
         mobile = wd.find_element_by_name("mobile").get_attribute("value")
         work = wd.find_element_by_name("work").get_attribute("value")
         address = wd.find_element_by_name("address").get_attribute("value")
-        return Contact(firstname=firstname, lastname=lastname, mainemail=email, email2=email2, email3=email3, id=id_contact, homephone=home, mobilephone=mobile, workphone=work, address=address)
+        return Contact(firstname=firstname, lastname=lastname, mainemail=email, email2=email2, email3=email3,
+                       id=id_contact, homephone=home, mobilephone=mobile, workphone=work, address=address)
 
     def join_get_contact_info_from_view_page(self, index):
         wd = self.cont_h.wd
