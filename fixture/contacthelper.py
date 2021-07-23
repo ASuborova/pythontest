@@ -152,10 +152,10 @@ class ContactHelper:
         self.open_contact_view_by_index(index)
         text = wd.find_element_by_id("content").text
 
-        all_info_on_page = re.search('H: (.*)\nM: (.*)\nW: (.*)', text).group()
-        all_phones_on_page = re.findall(r'[^H:M:W:]', all_info_on_page)
-        all_phones = ''.join(all_phones_on_page)
-
+        homephone = ''.join(re.findall(r'[^H]', re.search("H: (.*)", text).group(1)))
+        mobilephone = ''.join(re.findall(r'[^M]', re.search("M: (.*)", text).group(1)))
+        workphone = ''.join(re.findall(r'[^W]', re.search("W: (.*)", text).group(1)))
+        all_phones = homephone+'\n'+mobilephone+'\n'+workphone
 
         emails_list = re.findall("([a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+)", text)
         all_emails = '\n'.join(emails_list)
