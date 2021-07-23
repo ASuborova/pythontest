@@ -5,12 +5,20 @@ from fixture.grouphelper import GroupHelper
 
 
 class Application:
-    def __init__(self):
-        self.wd = webdriver.Firefox()
+    def __init__(self, browser, BUrl):
+        if browser == "firefox":
+            self.wd = webdriver.Firefox()
+        elif browser == "chrome":
+            self.wd = webdriver.Chrome()
+        elif browser == "ie":
+            self.wd = webdriver.Ie()
+        else:
+            raise ValueError("Unknown browser %s" % browser)
         self.wd.implicitly_wait(5)
         self.ses_h = SessionHelper(self)
         self.cont_h = ContactHelper(self)
         self.gr = GroupHelper(self)
+        self.BUrl = BUrl
 
     def is_valid(self):
         try:
@@ -22,7 +30,7 @@ class Application:
     def open_home_page(self):
         wd = self.wd
         # home page
-        wd.get("http://localhost/addressbook/index.php")
+        wd.get(self.BUrl)
 
     def district(self):
         self.wd.quit()
