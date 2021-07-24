@@ -95,6 +95,24 @@ class ContactHelper:
 
     contact_cash = None
 
+    def get_list_contact_join(self):
+        if self.contact_cash is None:
+            wd = self.cont_h.wd
+            self.cont_h.open_home_page()
+            self.contact_cash = []
+            for element in (wd.find_elements_by_css_selector("[name=entry]")):
+                cells = element.find_elements_by_tag_name("td")
+                id_contact = cells[0].find_element_by_tag_name("input").get_attribute("value")
+                text_lastname = cells[1].text
+                text_firstname = cells[2].text
+                text_address = cells[3].text
+                text_email_home = cells[4].text
+                text_phone_home = cells[5].text
+                self.contact_cash.append(
+                    Contact(id=id_contact, lastname=text_lastname, firstname=text_firstname, address=text_address,
+                            emails_home=text_email_home, phones_home=text_phone_home))
+        return list(self.contact_cash)
+
     def get_list_contact(self):
         if self.contact_cash is None:
             wd = self.cont_h.wd
@@ -106,16 +124,13 @@ class ContactHelper:
                 text_lastname = cells[1].text
                 text_firstname = cells[2].text
                 text_address = cells[3].text
-                text_email_home = cells[4].text.splitlines()
-                text_phone_home = cells[5].text.splitlines()
-                text_email_view = cells[4].text
-                text_phone_view = cells[5].text
+                all_emails = cells[4].text.splitlines()
+                all_phones = cells[5].text.splitlines()
                 self.contact_cash.append(
                     Contact(id=id_contact, lastname=text_lastname, firstname=text_firstname, address=text_address,
-                            emails_home=text_email_home, phones_home=text_phone_home, emails_view=text_email_view,
-                            phones_view=text_phone_view, mainemail=text_email_home[0], email2=text_email_home[1],
-                            email3=text_email_home[2], homephone=text_phone_home[0], mobilephone=text_phone_home[1],
-                            workphone=text_phone_home[2]))
+                            mainemail=all_emails[0], email2=all_emails[1],
+                            email3=all_emails[2], homephone=all_phones[0], mobilephone=all_phones[1],
+                            workphone=all_phones[2]))
         return list(self.contact_cash)
 
     def open_contact_to_edit_by_index(self, index):
@@ -162,6 +177,7 @@ class ContactHelper:
         all_emails = '\n'.join(emails_list)
 
         return Contact(phones_view=all_phones, emails_view=all_emails)
+
 
 
 

@@ -6,7 +6,7 @@ import string
 
 
 def random_string(prefix, maxlen):
-    symbol = string.ascii_letters + string.digits + string.punctuation + " "*3
+    symbol = string.ascii_letters + string.digits # + string.punctuation + " "*3
     address_email = ["@gmail.com", "@mail.ru", "@ya.ru"]
     number = string.digits
     if prefix == 'email':
@@ -27,8 +27,8 @@ testdata = [Contact(firstname=random_string("firstname", 10), middlename=random_
             for i in range(5)
             ]
 
-@pytest.mark.parametrize("contact", testdata, ids=(repr(x) for x in testdata))
 
+@pytest.mark.parametrize("contact", testdata, ids=(repr(x) for x in testdata))
 def test_add_new_contact(app, contact):
     old_list_contact = app.cont_h.get_list_contact()
     app.cont_h.create(contact)
