@@ -147,11 +147,19 @@ class ContactHelper:
         cell = row.find_elements_by_tag_name("td")[6]
         cell.find_element_by_tag_name("a").click()
 
+    def open_contact_fio_view_by_index(self, index):
+        wd = self.cont_h.wd
+        self.cont_h.open_home_page()
+        row = wd.find_elements_by_css_selector("[name=entry]")[index]
+        cell = row.find_elements_by_tag_name("td")[6]
+        cell.find_element_by_tag_name("b").click()
+
     def join_get_contact_info_from_edit_page(self, index):
         wd = self.cont_h.wd
         self.open_contact_to_edit_by_index(index)
         firstname = wd.find_element_by_name("firstname").get_attribute("value")
         lastname = wd.find_element_by_name("lastname").get_attribute("value")
+        middlename = wd.find_element_by_name("middlename").get_attribute("value")
         email = wd.find_element_by_name("email").get_attribute("value")
         email2 = wd.find_element_by_name("email2").get_attribute("value")
         email3 = wd.find_element_by_name("email3").get_attribute("value")
@@ -160,23 +168,41 @@ class ContactHelper:
         mobile = wd.find_element_by_name("mobile").get_attribute("value")
         work = wd.find_element_by_name("work").get_attribute("value")
         address = wd.find_element_by_name("address").get_attribute("value")
-        return Contact(firstname=firstname, lastname=lastname, mainemail=email, email2=email2, email3=email3,
+        return Contact(firstname=firstname, lastname=lastname, middlename=middlename, mainemail=email, email2=email2, email3=email3,
                        id=id_contact, homephone=home, mobilephone=mobile, workphone=work, address=address)
 
     def join_get_contact_info_from_view_page(self, index):
         wd = self.cont_h.wd
         self.open_contact_view_by_index(index)
         text = wd.find_element_by_id("content").text
+        all_phones = ""
 
-        homephone = ''.join(re.findall(r'[^H]', re.search("H: (.*)", text).group(1)))
-        mobilephone = ''.join(re.findall(r'[^M]', re.search("M: (.*)", text).group(1)))
-        workphone = ''.join(re.findall(r'[^W]', re.search("W: (.*)", text).group(1)))
-        all_phones = homephone+'\n'+mobilephone+'\n'+workphone
+        if re.search("H: (.*)", text):
+            homephone = ''.join(re.findall(r'[^H]', re.search("H: (.*)", text).group(1)))
+            all_phones = homephone
+        if re.search("M: (.*)", text) and all_phones != "":
+            mobilephone = ''.join(re.findall(r'[^M]', re.search("M: (.*)", text).group(1)))
+            all_phones = all_phones + '\n' + mobilephone
+        elif re.search("M: (.*)", text) and all_phones == "":
+            mobilephone = ''.join(re.findall(r'[^M]', re.search("M: (.*)", text).group(1)))
+            all_phones = all_phones + mobilephone
+        if re.search("W: (.*)", text) and all_phones != "":
+            workphone = ''.join(re.findall(r'[^W]', re.search("W: (.*)", text).group(1)))
+            all_phones = all_phones + '\n' + workphone
+        elif re.search("W: (.*)", text) and all_phones == "":
+            workphone = ''.join(re.findall(r'[^W]', re.search("W: (.*)", text).group(1)))
+            all_phones = all_phones + workphone
 
         emails_list = re.findall("([a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+)", text)
         all_emails = '\n'.join(emails_list)
 
         return Contact(phones_view=all_phones, emails_view=all_emails)
+
+    def join_get_contact_fio_info_from_view_page(self, index):
+        wd = self.cont_h.wd
+        self.open_contact_fio_view_by_index(index)
+        fio = wd.find_element_by_id("content").text
+        return Contact(fio_home=fio)
 
 
 
