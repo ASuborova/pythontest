@@ -95,7 +95,7 @@ class ContactHelper:
 
     contact_cash = None
 
-    def get_list_contact_join(self):
+    def get_list_contact(self):
         if self.contact_cash is None:
             wd = self.cont_h.wd
             self.cont_h.open_home_page()
@@ -113,26 +113,6 @@ class ContactHelper:
                             emails_home=text_email_home, phones_home=text_phone_home))
         return list(self.contact_cash)
 
-    def get_list_contact(self):
-        if self.contact_cash is None:
-            wd = self.cont_h.wd
-            self.cont_h.open_home_page()
-            self.contact_cash = []
-            for element in (wd.find_elements_by_css_selector("[name=entry]")):
-                cells = element.find_elements_by_tag_name("td")
-                id_contact = cells[0].find_element_by_tag_name("input").get_attribute("value")
-                text_lastname = cells[1].text
-                text_firstname = cells[2].text
-                text_address = cells[3].text
-                all_emails = cells[4].text.splitlines()
-                all_phones = cells[5].text.splitlines()
-                self.contact_cash.append(
-                    Contact(id=id_contact, lastname=text_lastname, firstname=text_firstname, address=text_address,
-                            mainemail=all_emails[0], email2=all_emails[1],
-                            email3=all_emails[2], homephone=all_phones[0], mobilephone=all_phones[1],
-                            workphone=all_phones[2]))
-        return list(self.contact_cash)
-
     def open_contact_to_edit_by_index(self, index):
         wd = self.cont_h.wd
         self.cont_h.open_home_page()
@@ -146,13 +126,6 @@ class ContactHelper:
         row = wd.find_elements_by_css_selector("[name=entry]")[index]
         cell = row.find_elements_by_tag_name("td")[6]
         cell.find_element_by_tag_name("a").click()
-
-    def open_contact_fio_view_by_index(self, index):
-        wd = self.cont_h.wd
-        self.cont_h.open_home_page()
-        row = wd.find_elements_by_css_selector("[name=entry]")[index]
-        cell = row.find_elements_by_tag_name("td")[6]
-        cell.find_element_by_tag_name("b").click()
 
     def join_get_contact_info_from_edit_page(self, index):
         wd = self.cont_h.wd
@@ -197,12 +170,6 @@ class ContactHelper:
         all_emails = '\n'.join(emails_list)
 
         return Contact(phones_view=all_phones, emails_view=all_emails)
-
-    def join_get_contact_fio_info_from_view_page(self, index):
-        wd = self.cont_h.wd
-        self.open_contact_fio_view_by_index(index)
-        fio = wd.find_element_by_id("content").text
-        return Contact(fio_home=fio)
 
 
 

@@ -10,7 +10,7 @@ def random_string(prefix, maxlen):
     address_email = ["@gmail.com", "@mail.ru", "@ya.ru"]
     number = string.digits
     if prefix == 'email':
-        return (''.join(random.choice(string.ascii_letters + string.digits) for i in range(random.randrange(maxlen)))
+        return ("".join(random.choice(symbol) for i in range(random.randrange(maxlen)))
                 + random.choice(address_email))
     elif prefix == 'number':
         return "".join(random.choice(number) for i in range(maxlen))
@@ -30,11 +30,12 @@ testdata = [Contact(firstname=random_string("firstname", 10), middlename=random_
 
 @pytest.mark.parametrize("contact", testdata, ids=(repr(x) for x in testdata))
 def test_add_new_contact(app, contact):
+    new_contact = contact
     old_list_contact = app.cont_h.get_list_contact()
-    app.cont_h.create(contact)
+    app.cont_h.create(new_contact)
     assert len(old_list_contact) + 1 == app.cont_h.count()
     new_list_contact = app.cont_h.get_list_contact()
-    old_list_contact.append(contact)
+    old_list_contact.append(new_contact)
     assert sorted(old_list_contact, key=Contact.id_max) == sorted(new_list_contact, key=Contact.id_max)
 
 

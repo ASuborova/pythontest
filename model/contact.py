@@ -3,7 +3,7 @@ from sys import maxsize
 class Contact:
     def __init__(self, firstname=None, middlename=None, lastname=None, nickname=None, title=None, companyname=None, address=None, homephone=None,
                  mobilephone=None, workphone=None, mainemail=None, email2=None, email3=None, bday=None, bmonth=None, byear=None, id=None,
-                 emails_home=None, phones_home=None, emails_view=None, phones_view=None, fio_home=None, fio_edit=None):
+                 emails_home=None, phones_home=None, emails_view=None, phones_view=None):
         self.firstname = firstname
         self.middlename = middlename
         self.lastname = lastname
@@ -25,8 +25,6 @@ class Contact:
         self.phones_home = phones_home
         self.emails_view = emails_view
         self.phones_view = phones_view
-        self.fio_home = fio_home
-        self.fio_edit = fio_edit
 
     def __repr__(self):
         return "%s:%s %s %s %s %s %s %s %s %s" % (self.id, self.lastname, self.firstname, self.address,
@@ -39,15 +37,13 @@ class Contact:
                self.firstname is None or other.firstname is None or self.firstname == other.firstname, \
                self.address is None or other.address is None or self.address == other.address, \
                self.emails_home is None or other.emails_home is None or self.emails_home == other.emails_home, \
+               self.mainemail is None or other.mainemail is None or self.mainemail == other.mainemail, \
+               self.email2 is None or other.email2 is None or self.email2 == other.email2, \
+               self.email3 is None or other.email3 is None or self.email3 == other.email3, \
                self.phones_home is None or other.phones_home is None or self.phones_home == other.phones_home, \
                self.mobilephone is None or other.mobilephone is None or self.mobilephone == other.mobilephone, \
                self.homephone is None or other.homephone is None or self.homephone == other.homephone, \
-               self.workphone is None or other.workphone is None or self.workphone == other.workphone, \
-               self.fio_home is None or other.fio_home is None or self.fio_home == other.fio_home, \
-               self.fio_edit is None or other.fio_edit is None or self.fio_edit == other.fio_edit
-               # self.mainemail is None or other.mainemail is None or self.mainemail == other.mainemail,  \
-               # self.email2 is None or other.email2 is None or self.email2 == other.email2, \
-               # self.email3 is None or other.email3 is None or self.email3 == other.email3
+               self.workphone is None or other.workphone is None or self.workphone == other.workphone
 
     def id_max(self):
         if self.id:
