@@ -2,6 +2,7 @@ import pytest
 from fixture.application import Application
 import json
 import os.path
+import importlib
 
 fixture_create = None
 target = None
@@ -39,3 +40,14 @@ def pytest_addoption(parser):
     # parser.addoption("--BUrl", action="store", default="http://localhost/addressbook/index.php")
     # parser.addoption("--password", action="store", default="secret")
     parser.addoption("--target", action="store", default="target.json")
+
+
+def pytest_generate_tests(metafunc):
+    for fixture in metafunc.fixturenames:
+        if fixture.startswith("data_"):
+            testdate = load_from_module(fixture[5:])
+            metafunc.parametrize(fixture, testdate, ids=[str(x) for x in testdate])
+
+
+def load_from_module(module):
+    return importlib.import_module("data.%s" % module).testdata
