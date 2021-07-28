@@ -15435,3 +15435,31 @@ JavaScript error: resource://gre/modules/TelemetryUtils.jsm, line 154: TypeError
 1627323776994	Marionette	INFO	Listening on port 43683
 1627323777044	Marionette	WARN	TLS certificate errors will be ignored for this session
 1627323794079	Marionette	INFO	Stopped listening on port 43683
+1627488935873	geckodriver	INFO	Listening on 127.0.0.1:36897
+1627488935878	mozrunner::runner	INFO	Running command: "/usr/bin/firefox" "--marionette" "-foreground" "-no-remote" "-profile" "/tmp/rust_mozprofilet83i6K"
+1627488936839	Marionette	INFO	Marionette enabled
+console.info: MINT: Trying to use the system region (based on LANG).
+console.info: MINT: System region is RU
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new NotFoundError("Could not open the file at /tmp/rust_mozprofilet83i6K/search.json.mozlz4", (void 0)))
+console.info: MINT: Loading search-config defaults.
+JavaScript error: resource://gre/modules/TelemetryUtils.jsm, line 154: TypeError: date is undefined
+1627488938517	Marionette	INFO	Listening on port 34095
+1627488938626	Marionette	WARN	TLS certificate errors will be ignored for this session
+1627488945474	Marionette	INFO	Stopped listening on port 34095
+
+###!!! [Parent][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+1627488998375	geckodriver	INFO	Listening on 127.0.0.1:39279
+1627488998380	mozrunner::runner	INFO	Running command: "/usr/bin/firefox" "--marionette" "-foreground" "-no-remote" "-profile" "/tmp/rust_mozprofile7cxwlZ"
+1627488999312	Marionette	INFO	Marionette enabled
+console.info: MINT: Trying to use the system region (based on LANG).
+console.info: MINT: System region is RU
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new NotFoundError("Could not open the file at /tmp/rust_mozprofile7cxwlZ/search.json.mozlz4", (void 0)))
+console.info: MINT: Loading search-config defaults.
+JavaScript error: resource://gre/modules/TelemetryUtils.jsm, line 154: TypeError: date is undefined
+1627489000724	Marionette	INFO	Listening on port 33081
+1627489000809	Marionette	WARN	TLS certificate errors will be ignored for this session
+1627489008048	Marionette	INFO	Stopped listening on port 33081
+
+###!!! [Parent][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
