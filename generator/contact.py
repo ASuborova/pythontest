@@ -24,7 +24,7 @@ for o, a in opts:
 
 
 def random_string(prefix, maxlen):
-    symbol = string.ascii_letters + string.digits # + string.punctuation + " "*3
+    symbol = string.ascii_letters + string.digits
     address_email = ["@gmail.com", "@mail.ru", "@ya.ru"]
     number = string.digits
     if prefix == 'email':
