@@ -38,11 +38,14 @@ class ContactHelper:
         self.change_field("bday", contact.bday)
         self.change_field("bmonth", contact.bmonth)
         self.change_field("byear", contact.byear)
+        self.change_field("aday", contact.aday)
+        self.change_field("amonth", contact.amonth)
+        self.change_field("ayear", contact.ayear)
 
     def change_field(self, field_name, text):
         wd = self.cont_h.wd
         if text is not None:
-            if (field_name == "bday") or (field_name == "bmonth"):
+            if (field_name in ('bday', 'aday')) or (field_name in ('bmonth', 'amonth')):
                 wd.find_element_by_name(field_name).click()
                 Select(wd.find_element_by_name(field_name)).select_by_visible_text(text)
             else:

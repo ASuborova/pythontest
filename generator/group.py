@@ -27,7 +27,8 @@ def random_string(prefix, maxlen):
     return prefix + "".join(random.choice(symbol) for i in range(random.randrange(maxlen)))
 
 
-testdata = [Group(namegroup="", header="", footer="")] + [
+testdata = [
+    Group(namegroup="", header="", footer="")] + [
     Group(namegroup=random_string("group_name", 2), header=random_string("Zagolovok", 5), footer=random_string("Podval", 5))
     for i in range(n)
 ]
@@ -35,6 +36,5 @@ testdata = [Group(namegroup="", header="", footer="")] + [
 file = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", f)
 
 with open(file, "w") as out:
-    # out.write(json.dumps(testdata, default=lambda x: x.__dict__, indent=2))
     jsonpickle.set_encoder_options("json", indent=2)
     out.write(jsonpickle.encode(testdata))
