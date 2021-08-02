@@ -1,5 +1,13 @@
 {
+  "web": {
   "BUrl": "http://localhost/addressbook/index.php",
   "username": "admin",
   "password": "secret"
+  },
+  "db": {
+   "host": "localhost",
+    "name": "addressbook",
+    "user": "addressbook2",
+    "password": "addressbook2"
+  }
 }
