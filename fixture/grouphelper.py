@@ -31,6 +31,10 @@ class GroupHelper:
         wd = self.gr.wd
         wd.find_elements_by_name("selected[]")[index_element].click()
 
+    def select_element_by_id(self, id):
+        wd = self.gr.wd
+        wd.find_element_by_css_selector("input[value='%s']" % id).click()
+
     def create_group(self, group):
         wd = self.gr.wd
         self.open_group_page()
@@ -83,9 +87,17 @@ class GroupHelper:
         wd = self.gr.wd
         self.open_group_page()
         self.select_element_by_index(index_dy_group)
-        # wd.find_element_by_xpath("//input[@value='Delete group(s)']").click()
         wd.find_element_by_name("delete").click()
         self.back_page_group()
         self.group_cash = None
+
+    def del_group_by_id(self, id_group):
+        wd = self.gr.wd
+        self.open_group_page()
+        self.select_element_by_id(id_group)
+        wd.find_element_by_name("delete").click()
+        self.back_page_group()
+        self.group_cash = None
+
 
 
