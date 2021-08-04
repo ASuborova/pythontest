@@ -18,16 +18,16 @@ class Contact:
         self.email2 = email2
         self.email3 = email3
         self.bday = bday
-        # self.bmonth = bmonth
-        # self.byear = byear
+        self.bmonth = bmonth
+        self.byear = byear
         self.id = id
         self.emails_home = emails_home
         self.phones_home = phones_home
         self.emails_view = emails_view
         self.phones_view = phones_view
         self.aday = aday
-        # self.amonth = amonth
-        # self.ayear = ayear
+        self.amonth = amonth
+        self.ayear = ayear
 
     def __repr__(self):
         return "%s:%s %s %s %s %s %s %s %s %s" % (self.id, self.lastname, self.firstname, self.address,

@@ -31,9 +31,9 @@ class GroupHelper:
         wd = self.gr.wd
         wd.find_elements_by_name("selected[]")[index_element].click()
 
-    def select_element_by_id(self, id):
+    def select_element_by_id(self, id_group):
         wd = self.gr.wd
-        wd.find_element_by_css_selector("input[value='%s']" % id).click()
+        wd.find_element_by_css_selector("input[value='%s']" % id_group).click()
 
     def create_group(self, group):
         wd = self.gr.wd
@@ -51,6 +51,16 @@ class GroupHelper:
         wd = self.gr.wd
         self.open_group_page()
         self.select_element_by_index(index_group)
+        wd.find_element_by_name("edit").click()
+        self.attributes_group(group)
+        wd.find_element_by_name("update").click()
+        self.back_page_group()
+        self.group_cash = None
+
+    def edit_group_by_id(self, group, id_group):
+        wd = self.gr.wd
+        self.open_group_page()
+        self.select_element_by_id(id_group)
         wd.find_element_by_name("edit").click()
         self.attributes_group(group)
         wd.find_element_by_name("update").click()

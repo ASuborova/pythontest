@@ -20,6 +20,10 @@ class ContactHelper:
         wd = self.cont_h.wd
         wd.find_elements_by_name("selected[]")[index_contact].click()
 
+    def select_element_by_id(self, id_contact):
+        wd = self.cont_h.wd
+        wd.find_element_by_css_selector("input[value='%s']" % id_contact).click()
+
     def attributes_contact(self, contact):
         wd = self.cont_h.wd
         self.change_field("firstname", contact.firstname)
@@ -74,6 +78,16 @@ class ContactHelper:
         self.back_home_page()
         self.contact_cash = None
 
+    def edit_contact_by_id(self, contact, id_element):
+        wd = self.cont_h.wd
+        self.cont_h.open_home_page()
+        # wd.find_elements_by_css_selector("img[alt='Edit']")[id_element].click()
+        wd.find_element_by_css_selector("a[href='edit.php?id=%s']" % id_element).click()
+        self.attributes_contact(contact)
+        wd.find_element_by_name("update").click()
+        self.back_home_page()
+        self.contact_cash = None
+
     def del_first_contact(self):
         self.del_contact_by_index(0)
 
@@ -81,6 +95,15 @@ class ContactHelper:
         wd = self.cont_h.wd
         self.cont_h.open_home_page()
         self.select_element_by_index(index_del_contact)
+        wd.find_element_by_xpath("//input[@value='Delete']").click()
+        wd.switch_to_alert().accept()
+        wd.find_element_by_css_selector("div.msgbox")
+        self.contact_cash = None
+
+    def del_contact_by_id(self, id_contact):
+        wd = self.cont_h.wd
+        self.cont_h.open_home_page()
+        self.select_element_by_id(id_contact)
         wd.find_element_by_xpath("//input[@value='Delete']").click()
         wd.switch_to_alert().accept()
         wd.find_element_by_css_selector("div.msgbox")
