@@ -1,5 +1,5 @@
 from pony.orm import *
-from datetime import datetime
+from _datetime import datetime
 from model.group import Group
 from model.contact import Contact
 from pymysql.converters import decoders
@@ -15,6 +15,7 @@ class ORMFixture:
         namegroup = Optional(str, column='group_name')
         header = Optional(str, column='group_header')
         footer = Optional(str, column='group_footer')
+        contact_id = Set(lambda: ORMFixture.ORMContact, table="address_in_groups", column="id", reverse="group_id", lazy=True)
 
     class ORMContact(db.Entity):
         _table_ = 'addressbook'
@@ -22,11 +23,12 @@ class ORMFixture:
         firstname = Optional(str, column='firstname')
         lastname = Optional(str, column='lastname')
         deprecated = Optional(datetime, column='deprecated')
+        group_id = Set(lambda: ORMFixture.ORMGroup, table="address_in_groups", column="group_id", reverse="contact_id", lazy=True)
 
     def __init__(self, host, name, user, password):
-        self.db.bind('mysql', host=host,  database=name, user=user, password=password, conv=decoders)
+        self.db.bind('mysql', host=host,  database=name, user=user, password=password) #, conv=decoders)
         self.db.generate_mapping()
-        # sql_debug(True)
+        sql_debug(True)
 
     def convert_groups_to_model(self, groups):
         def convert(group):
@@ -45,3 +47,14 @@ class ORMFixture:
     @db_session
     def get_contact_list(self):
         return self.convert_contacts_to_model(select(c for c in ORMFixture.ORMContact if c.deprecated is None))
+
+    @db_session
+    def get_contacts_in_group(self, group):
+        orm_group = list(select(g for g in ORMFixture.ORMGroup if g.id == group.id))[0]
+        return self.convert_contacts_to_model(orm_group.contact_id)
+
+    @db_session
+    def get_contacts_not_in_group(self, group):
+        orm_group = list(select(g for g in ORMFixture.ORMGroup if g.id == group.id))[0]
+        return self.convert_contacts_to_model(select(c for c in ORMFixture.ORMContact if c.deprecated is None
+                                                     and orm_group not in c.group_id))
