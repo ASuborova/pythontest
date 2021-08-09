@@ -6,7 +6,7 @@ class Contact_in_Group:
         self.group_id = group_id
 
     def __repr__(self):
-        return "%s %s" % (self.id, self.group_id)
+        return "%s:%s" % (self.id, self.group_id)
 
     def __eq__(self, other):
         return (self.id is None or other.id is None or self.id == other.id), \

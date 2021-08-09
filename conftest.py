@@ -5,6 +5,7 @@ import os.path
 import importlib
 import jsonpickle
 from fixture.db import DbFixture
+from fixture.orm import ORMFixture
 
 fixture_create = None
 target = None
@@ -38,6 +39,13 @@ def db(request):
         dbfixture.district()
     request.addfinalizer(fin)
     return dbfixture
+
+
+@pytest.fixture(scope="session")
+def DBORM(request):
+    db_config = load_config(request.config.getoption("--target"))["db"]
+    db_orm_fixture = ORMFixture(host=db_config["host"], name=db_config["name"], user=db_config["user"], password=db_config["password"])
+    return db_orm_fixture
 
 
 @pytest.fixture(scope="session", autouse=True)

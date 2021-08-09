@@ -2,7 +2,6 @@ from pony.orm import *
 from _datetime import datetime
 from model.group import Group
 from model.contact import Contact
-from pymysql.converters import decoders
 
 
 class ORMFixture:
@@ -22,11 +21,19 @@ class ORMFixture:
         id = PrimaryKey(int, column='id')
         firstname = Optional(str, column='firstname')
         lastname = Optional(str, column='lastname')
+        address = Optional(str, column='address')
+        homephone = Optional(str, column='home')
+        mobilephone = Optional(str, column='mobile')
+        workphone = Optional(str, column='work')
+        fax = Optional(str, column='fax')
+        mainemail = Optional(str, column='email')
+        email2 = Optional(str, column='email2')
+        email3 = Optional(str, column='email3')
         deprecated = Optional(datetime, column='deprecated')
         group_id = Set(lambda: ORMFixture.ORMGroup, table="address_in_groups", column="group_id", reverse="contact_id", lazy=True)
 
     def __init__(self, host, name, user, password):
-        self.db.bind('mysql', host=host,  database=name, user=user, password=password) #, conv=decoders)
+        self.db.bind('mysql', host=host,  database=name, user=user, password=password)
         self.db.generate_mapping()
         # sql_debug(True)
 
@@ -42,9 +49,9 @@ class ORMFixture:
     def convert_contacts_to_model(self, contacts):
         def convert(contact):
             return Contact(id=str(contact.id), firstname=contact.firstname, lastname=contact.lastname,
-                           address=contact.address, homephone=contact.home, mobilephone=contact.mobile,
-                           workphone=contact.work, fax=contact.fax, mainemail=contact.email, email2=contact.email2,
-                           email3=contact.email3)
+                           address=contact.address, homephone=contact.homephone, mobilephone=contact.mobilephone,
+                           workphone=contact.workphone, fax=contact.fax, mainemail=contact.mainemail,
+                           email2=contact.email2, email3=contact.email3)
         return list(map(convert, contacts))
 
     @db_session
