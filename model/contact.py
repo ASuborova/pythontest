@@ -2,7 +2,7 @@ from sys import maxsize
 
 class Contact:
     def __init__(self, firstname=None, middlename=None, lastname=None, nickname=None, title=None, companyname=None, address=None, homephone=None,
-                 mobilephone=None, workphone=None, mainemail=None, email2=None, email3=None, bday="1", bmonth=None, byear=None, id=None,
+                 mobilephone=None, workphone=None, mainemail=None, fax=None, email2=None, email3=None, bday="1", bmonth=None, byear=None, id=None,
                  emails_home=None, phones_home=None, emails_view=None, phones_view=None, aday="1", amonth=None, ayear=None):
         self.firstname = firstname
         self.middlename = middlename
@@ -14,6 +14,7 @@ class Contact:
         self.homephone = homephone
         self.mobilephone = mobilephone
         self.workphone = workphone
+        self.fax = fax
         self.mainemail = mainemail
         self.email2 = email2
         self.email3 = email3
@@ -30,8 +31,8 @@ class Contact:
         self.ayear = ayear
 
     def __repr__(self):
-        return "%s:%s %s %s %s %s %s %s %s %s" % (self.id, self.lastname, self.firstname, self.address,
-                                                  self.mobilephone, self.homephone, self.workphone, self.mainemail,
+        return "%s:%s %s %s %s %s %s %s %s %s %s" % (self.id, self.lastname, self.firstname, self.address,
+                                                  self.mobilephone, self.homephone, self.workphone, self.fax, self.mainemail,
                                                   self.email2, self.email3)
 
     def __eq__(self, other):
@@ -46,7 +47,8 @@ class Contact:
                self.phones_home is None or other.phones_home is None or self.phones_home == other.phones_home, \
                self.mobilephone is None or other.mobilephone is None or self.mobilephone == other.mobilephone, \
                self.homephone is None or other.homephone is None or self.homephone == other.homephone, \
-               self.workphone is None or other.workphone is None or self.workphone == other.workphone
+               self.workphone is None or other.workphone is None or self.workphone == other.workphone, \
+               self.fax is None or other.fax is None or self.fax == other.fax
 
     def id_max(self):
         if self.id:

@@ -166,9 +166,11 @@ class ContactHelper:
         home = wd.find_element_by_name("home").get_attribute("value")
         mobile = wd.find_element_by_name("mobile").get_attribute("value")
         work = wd.find_element_by_name("work").get_attribute("value")
+        fax = wd.find_element_by_name("fax").get_attribute("value")
         address = wd.find_element_by_name("address").get_attribute("value")
-        return Contact(firstname=firstname, lastname=lastname, middlename=middlename, mainemail=email, email2=email2, email3=email3,
-                       id=id_contact, homephone=home, mobilephone=mobile, workphone=work, address=address)
+        return Contact(firstname=firstname, lastname=lastname, middlename=middlename, mainemail=email, email2=email2,
+                       email3=email3, id=id_contact, homephone=home, mobilephone=mobile, workphone=work, fax=fax,
+                       address=address)
 
     def join_get_contact_info_from_view_page(self, index):
         wd = self.cont_h.wd
@@ -191,6 +193,12 @@ class ContactHelper:
         elif re.search("W: (.*)", text) and all_phones == "":
             workphone = ''.join(re.findall(r'[^W]', re.search("W: (.*)", text).group(1)))
             all_phones = all_phones + workphone
+        if re.search("F: (.*)", text) and all_phones != "":
+            fax = ''.join(re.findall(r'[^F]', re.search("F: (.*)", text).group(1)))
+            all_phones = all_phones + '\n' + fax
+        elif re.search("F: (.*)", text) and all_phones == "":
+            fax = ''.join(re.findall(r'[^F]', re.search("F: (.*)", text).group(1)))
+            all_phones = all_phones + fax
 
         emails_list = re.findall("([a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+)", text)
         all_emails = '\n'.join(emails_list)

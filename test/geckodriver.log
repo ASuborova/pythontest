@@ -17829,3 +17829,32 @@ JavaScript error: resource://gre/modules/TelemetryUtils.jsm, line 154: TypeError
 1628273174063	Marionette	INFO	Listening on port 37959
 1628273174140	Marionette	WARN	TLS certificate errors will be ignored for this session
 1628273180689	Marionette	INFO	Stopped listening on port 37959
+1628487149457	geckodriver	INFO	Listening on 127.0.0.1:58611
+1628487149464	mozrunner::runner	INFO	Running command: "/usr/bin/firefox" "--marionette" "-foreground" "-no-remote" "-profile" "/tmp/rust_mozprofileHi3ldS"
+1628487150184	Marionette	INFO	Marionette enabled
+console.info: MINT: Trying to use the system region (based on LANG).
+console.info: MINT: System region is RU
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new NotFoundError("Could not open the file at /tmp/rust_mozprofileHi3ldS/search.json.mozlz4", (void 0)))
+console.info: MINT: Loading search-config defaults.
+JavaScript error: resource://gre/modules/TelemetryUtils.jsm, line 154: TypeError: date is undefined
+1628487151892	Marionette	INFO	Listening on port 36319
+1628487152019	Marionette	WARN	TLS certificate errors will be ignored for this session
+1628487158788	Marionette	INFO	Stopped listening on port 36319
+JavaScript error: resource://gre/modules/UrlClassifierListManager.jsm, line 691: TypeError: this.tablesData[table] is undefined
+
+###!!! [Parent][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+1628489428558	geckodriver	INFO	Listening on 127.0.0.1:34425
+1628489428562	mozrunner::runner	INFO	Running command: "/usr/bin/firefox" "--marionette" "-foreground" "-no-remote" "-profile" "/tmp/rust_mozprofileSJqo5Z"
+1628489429176	Marionette	INFO	Marionette enabled
+console.info: MINT: Trying to use the system region (based on LANG).
+console.info: MINT: System region is RU
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new NotFoundError("Could not open the file at /tmp/rust_mozprofileSJqo5Z/search.json.mozlz4", (void 0)))
+console.info: MINT: Loading search-config defaults.
+JavaScript error: resource://gre/modules/TelemetryUtils.jsm, line 154: TypeError: date is undefined
+1628489430654	Marionette	INFO	Listening on port 44223
+1628489430684	Marionette	WARN	TLS certificate errors will be ignored for this session
+1628489444292	Marionette	INFO	Stopped listening on port 44223
+
+###!!! [Parent][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
