@@ -4,7 +4,7 @@ from model.contact_in_group import Contact_in_Group
 import random
 
 
-def test_add_contact_in_group(app, db, DBORM, check_ui):
+def test_add_contact_in_group(app, db, DBORM):
     if len(db.get_contact_list()) == 0:
         app.cont_h.create(Contact(lastname="test_contact"))
     if len(db.get_group_list()) == 0:
@@ -14,8 +14,11 @@ def test_add_contact_in_group(app, db, DBORM, check_ui):
 
     list_group = db.get_group_list()
     choice_id_group = random.choice(list_group)
-    contact_not_in_group = DBORM.get_contacts_not_in_group(choice_id_group)
 
+    if len(DBORM.get_contacts_not_in_group(choice_id_group)) == 0:
+        app.cont_h.create(Contact(lastname="test_contact"))
+
+    contact_not_in_group = DBORM.get_contacts_not_in_group(choice_id_group)
     choice_id_contact = random.choice(contact_not_in_group)
 
     app.cont_gr.add_contact_in_group(choice_id_contact.id, choice_id_group)
@@ -26,8 +29,5 @@ def test_add_contact_in_group(app, db, DBORM, check_ui):
     assert sorted(old_list_contact_in_group, key=Contact_in_Group.id_max) == \
            sorted(new_list_contact_in_group, key=Contact_in_Group.id_max)
 
-    if check_ui:
-        assert sorted(new_list_contact_in_group, key=Contact_in_Group.id_max) == \
-               sorted(app.cont_gr.get_list_contact_in_group(), key=Contact_in_Group.id_max)
 
 
