@@ -25,7 +25,7 @@ class ORMFixture:
         homephone = Optional(str, column='home')
         mobilephone = Optional(str, column='mobile')
         workphone = Optional(str, column='work')
-        fax = Optional(str, column='fax')
+        phone2 = Optional(str, column='phone2')
         mainemail = Optional(str, column='email')
         email2 = Optional(str, column='email2')
         email3 = Optional(str, column='email3')
@@ -50,7 +50,7 @@ class ORMFixture:
         def convert(contact):
             return Contact(id=str(contact.id), firstname=contact.firstname, lastname=contact.lastname,
                            address=contact.address, homephone=contact.homephone, mobilephone=contact.mobilephone,
-                           workphone=contact.workphone, fax=contact.fax, mainemail=contact.mainemail,
+                           workphone=contact.workphone, phone2=contact.phone2, mainemail=contact.mainemail,
                            email2=contact.email2, email3=contact.email3)
         return list(map(convert, contacts))
 

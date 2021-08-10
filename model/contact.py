@@ -36,19 +36,8 @@ class Contact:
                                                   self.email2, self.email3)
 
     def __eq__(self, other):
-        return (self.id is None or other.id is None or self.id == other.id), \
-               self.lastname is None or other.lastname is None or self.lastname == other.lastname, \
-               self.firstname is None or other.firstname is None or self.firstname == other.firstname, \
-               self.address is None or other.address is None or self.address == other.address, \
-               self.emails_home is None or other.emails_home is None or self.emails_home == other.emails_home, \
-               self.mainemail is None or other.mainemail is None or self.mainemail == other.mainemail, \
-               self.email2 is None or other.email2 is None or self.email2 == other.email2, \
-               self.email3 is None or other.email3 is None or self.email3 == other.email3, \
-               self.phones_home is None or other.phones_home is None or self.phones_home == other.phones_home, \
-               self.mobilephone is None or other.mobilephone is None or self.mobilephone == other.mobilephone, \
-               self.homephone is None or other.homephone is None or self.homephone == other.homephone, \
-               self.workphone is None or other.workphone is None or self.workphone == other.workphone, \
-               self.phone2 is None or other.phone2 is None or self.phone2 == other.phone2
+        return (self.id is None or other.id is None or self.id == other.id) and self.lastname == other.lastname \
+               and self.firstname == other.firstname
 
     def id_max(self):
         if self.id:

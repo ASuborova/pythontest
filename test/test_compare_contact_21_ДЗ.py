@@ -14,7 +14,7 @@ def test_compare_contact(app, db):
                        address=contact.address.strip(), mainemail=contact.mainemail.strip(),
                        email2=contact.email2.strip(), email3=contact.email3.strip(),
                        homephone=contact.homephone.strip(), workphone=contact.workphone.strip(),
-                       mobilephone=contact.mobilephone.strip(), fax=contact.fax.strip())
+                       mobilephone=contact.mobilephone.strip(), phone2=contact.phone2.strip())
     all_contact_from_db = sorted(list(map(clean_contact, db.get_contact_list())), key=Contact.id_max)
 
     assert len(all_contact_from_home) == len(all_contact_from_db)
@@ -36,7 +36,7 @@ def all_phones_on_home_page(contact):
     return "\n".join(filter(lambda x: x != "",
                             map(lambda x: clean(x),
                                 filter(lambda x: x is not None,
-                                       [contact.homephone, contact.mobilephone, contact.workphone]))))
+                                       [contact.homephone, contact.mobilephone, contact.workphone, contact.phone2]))))
 
 
 def all_emails_on_home_page(contact):
