@@ -24,7 +24,7 @@ def all_phones_on_home_page(contact):
     return "\n".join(filter(lambda x: x != "",
                             map(lambda x: clean(x),
                                 filter(lambda x: x is not None,
-                                       [contact.homephone, contact.mobilephone, contact.workphone]))))
+                                       [contact.homephone, contact.mobilephone, contact.workphone, contact.phone2]))))
 
 
 def all_emails_on_home_page(contact):

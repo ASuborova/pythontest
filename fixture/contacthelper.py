@@ -36,7 +36,7 @@ class ContactHelper:
         self.change_field("home", contact.homephone)
         self.change_field("mobile", contact.mobilephone)
         self.change_field("work", contact.workphone)
-        self.change_field("fax", contact.fax)
+        self.change_field("phone2", contact.phone2)
         self.change_field("email", contact.mainemail)
         self.change_field("email2", contact.email2)
         self.change_field("email3", contact.email3)
@@ -167,10 +167,10 @@ class ContactHelper:
         home = wd.find_element_by_name("home").get_attribute("value")
         mobile = wd.find_element_by_name("mobile").get_attribute("value")
         work = wd.find_element_by_name("work").get_attribute("value")
-        fax = wd.find_element_by_name("fax").get_attribute("value")
+        phone2 = wd.find_element_by_name("phone2").get_attribute("value")
         address = wd.find_element_by_name("address").get_attribute("value")
         return Contact(firstname=firstname, lastname=lastname, middlename=middlename, mainemail=email, email2=email2,
-                       email3=email3, id=id_contact, homephone=home, mobilephone=mobile, workphone=work, fax=fax,
+                       email3=email3, id=id_contact, homephone=home, mobilephone=mobile, workphone=work, phone2=phone2,
                        address=address)
 
     def join_get_contact_info_from_view_page(self, index):
@@ -194,12 +194,12 @@ class ContactHelper:
         elif re.search("W: (.*)", text) and all_phones == "":
             workphone = ''.join(re.findall(r'[^W]', re.search("W: (.*)", text).group(1)))
             all_phones = all_phones + workphone
-        if re.search("F: (.*)", text) and all_phones != "":
-            fax = ''.join(re.findall(r'[^F]', re.search("F: (.*)", text).group(1)))
-            all_phones = all_phones + '\n' + fax
-        elif re.search("F: (.*)", text) and all_phones == "":
-            fax = ''.join(re.findall(r'[^F]', re.search("F: (.*)", text).group(1)))
-            all_phones = all_phones + fax
+        if re.search("P: (.*)", text) and all_phones != "":
+            phone2 = ''.join(re.findall(r'[^P]', re.search("P: (.*)", text).group(1)))
+            all_phones = all_phones + '\n' + phone2
+        elif re.search("P: (.*)", text) and all_phones == "":
+            phone2 = ''.join(re.findall(r'[^P]', re.search("P: (.*)", text).group(1)))
+            all_phones = all_phones + phone2
 
         emails_list = re.findall("([a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+)", text)
         all_emails = '\n'.join(emails_list)
